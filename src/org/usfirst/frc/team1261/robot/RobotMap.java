@@ -22,7 +22,7 @@ public class RobotMap {
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
 	// public static int rightMotor = 2;
-	public static void init() {
+	static {
 		leftDriveMotorFront = new CANTalon(5);
 		leftDriveMotorRear = new CANTalon(7);
 		rightDriveMotorFront = new CANTalon(6);
@@ -30,6 +30,7 @@ public class RobotMap {
 		leftDriveEncoder = new Encoder(5,7);
 		rightDriveEncoder = new Encoder(6,8);
 		driveTrain = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront, leftDriveMotorRear);
+		//driveTrain = new RobotDrive(leftDriveMotorFront, rightDriveMotorFront);
 	}
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
