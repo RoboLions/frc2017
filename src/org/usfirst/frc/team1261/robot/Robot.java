@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1261.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +22,7 @@ import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static final Intake intake = new Intake();
 	public static OI oi;
 
 	Command autonomousCommand;
