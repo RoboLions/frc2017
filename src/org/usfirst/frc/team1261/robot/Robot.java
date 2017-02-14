@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
+import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1261.robot.subsystems.HopperAgitator;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
 
 /**
@@ -21,6 +23,8 @@ import org.usfirst.frc.team1261.robot.subsystems.Intake;
  */
 public class Robot extends IterativeRobot {
 
+	public static final Climber climber = new Climber();
+	public static final HopperAgitator hopperAgitator = new HopperAgitator();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
 	public static OI oi;

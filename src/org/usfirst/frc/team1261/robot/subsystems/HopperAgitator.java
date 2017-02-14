@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
-import org.usfirst.frc.team1261.robot.commands.IntakeRoll;
+import org.usfirst.frc.team1261.robot.commands.HopperAgitatorClockwise;
 
 import com.ctre.CANTalon;
 
@@ -10,28 +10,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Intake extends Subsystem {
+public class HopperAgitator extends Subsystem {
 
-	CANTalon intakeMotor = RobotMap.intakeMotor;
+	CANTalon hopperAgitatorMotor = RobotMap.hopperAgitatorMotor;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new IntakeRoll());
+    	setDefaultCommand(new HopperAgitatorClockwise());
     }
     
-    public void setIntakePower(double power) { //SETS POWER OF INTAKE MOTOR
-    	intakeMotor.set(power);
+    public void setAgitatorPower(double power) {
+        hopperAgitatorMotor.set(power);
     }
     
     public void stop() {
-    	setIntakePower(0.0);
+    	setAgitatorPower(0.0);
     }
     
-    public CANTalon getIntakeMotor() {
-    	return intakeMotor;
+    public CANTalon getHopperAgitatorMotor() {
+    	return hopperAgitatorMotor;
     }
 }
 

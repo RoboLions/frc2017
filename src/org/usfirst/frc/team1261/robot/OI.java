@@ -1,6 +1,13 @@
 package org.usfirst.frc.team1261.robot;
 
+import org.usfirst.frc.team1261.robot.commands.HopperAgitatorClockwise;
+import org.usfirst.frc.team1261.robot.commands.HopperAgitatorCounterclockwise;
+import org.usfirst.frc.team1261.robot.commands.IntakeRoll;
+import org.usfirst.frc.team1261.robot.commands.IntakeRollOut;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 /**
@@ -60,8 +67,16 @@ public class OI {
 	static Joystick driverJoystick = new Joystick(DRIVER_JOYSTICK);
 	static Joystick manipulatorJoystick = new Joystick(MANIPULATOR_JOYSTICK);
 	
+	Button intakeInButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
+	Button intakeOutButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
+	Button agitatorCWButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
+    Button agitatorCCWButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
+	
 	public OI() {
-		
+		intakeInButton.toggleWhenPressed(new IntakeRoll());
+		intakeOutButton.toggleWhenPressed(new IntakeRollOut());
+		agitatorCWButton.toggleWhenPressed(new HopperAgitatorClockwise());
+		agitatorCCWButton.toggleWhenPressed(new HopperAgitatorCounterclockwise());
 	}
 	
 	public static Joystick getDriverJoystick() {
