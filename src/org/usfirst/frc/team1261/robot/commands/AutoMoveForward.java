@@ -18,10 +18,13 @@ public class AutoMoveForward extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.driveTrain.stop();
+    	Robot.driveTrain.getLeftEncoder().reset();
+    	Robot.driveTrain.getRightEncoder().reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrain.getRobotDrive().arcadeDrive(0.5, 0.0); // half speed so it doesn't crash
     }
 
     // Make this return true when this Command no longer needs to run execute()
