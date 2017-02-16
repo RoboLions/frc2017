@@ -1,7 +1,9 @@
 package org.usfirst.frc.team1261.robot.commands;
 
+import org.usfirst.frc.team1261.robot.OI;
 import org.usfirst.frc.team1261.robot.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class HopperAgitatorClockwise extends Command {
 
+	public static Joystick MANIPULATOR_JOYSTICK = OI.getManipulatorJoystick();
     public static final double POWER = -1.0;
     
 	public HopperAgitatorClockwise() {

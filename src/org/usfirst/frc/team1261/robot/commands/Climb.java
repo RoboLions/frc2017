@@ -9,25 +9,24 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class HopperAgitatorCounterclockwise extends Command {
-	
+public class Climb extends Command {
+
 	public static Joystick MANIPULATOR_JOYSTICK = OI.getManipulatorJoystick();
 	public static final double POWER = 1.0;
-
-    public HopperAgitatorCounterclockwise() {
+    public Climb() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.hopperAgitator);
+    	requires(Robot.climber);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.hopperAgitator.stop();
+    	Robot.climber.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.hopperAgitator.setAgitatorPower(POWER);
+    	Robot.climber.setClimbPower(POWER);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +36,7 @@ public class HopperAgitatorCounterclockwise extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.hopperAgitator.stop();
+    	Robot.climber.stop();
     }
 
     // Called when another command which requires one or more of the same
