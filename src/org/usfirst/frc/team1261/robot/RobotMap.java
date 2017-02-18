@@ -17,6 +17,7 @@ public class RobotMap {
 	public static CANTalon intakeMotor;
 	public static CANTalon hopperAgitatorMotor;
 	public static CANTalon climbMotor;
+	public static CANTalon shooterMotor;
 	public static Encoder leftDriveEncoder;
 	public static Encoder rightDriveEncoder;
 	public static RobotDrive driveTrain;
@@ -33,6 +34,7 @@ public class RobotMap {
 		intakeMotor = new CANTalon(9);
 		climbMotor = new CANTalon(4);
 		hopperAgitatorMotor= new CANTalon(3);
+		shooterMotor = new CANTalon(2);
 		leftDriveEncoder = new Encoder(5,7);
 		rightDriveEncoder = new Encoder(6,8);
 		driveTrain = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront, leftDriveMotorRear);

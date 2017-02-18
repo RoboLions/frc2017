@@ -2,6 +2,7 @@ package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.Climb;
 import org.usfirst.frc.team1261.robot.commands.ClimbReverse;
+import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.HopperAgitatorClockwise;
 import org.usfirst.frc.team1261.robot.commands.HopperAgitatorCounterclockwise;
 import org.usfirst.frc.team1261.robot.commands.IntakeRoll;
@@ -75,12 +76,14 @@ public class OI {
     Button agitatorCCWButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
     Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
     Button climbReverseButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
+    Button shooterButton = new JoystickButton(driverJoystick, AXIS_RIGHT_TRIGGER);
 	
 	public OI() {
 		intakeInButton.toggleWhenPressed(new IntakeRoll());
 		intakeOutButton.toggleWhenPressed(new IntakeRollOut());
 		agitatorCWButton.toggleWhenPressed(new HopperAgitatorClockwise());
 		agitatorCCWButton.toggleWhenPressed(new HopperAgitatorCounterclockwise());
+		shooterButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
 		climbReverseButton.whileHeld(new ClimbReverse());
 	}

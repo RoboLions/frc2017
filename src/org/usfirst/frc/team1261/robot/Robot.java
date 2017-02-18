@@ -14,6 +14,10 @@ import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.HopperAgitator;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
+import org.usfirst.frc.team1261.robot.subsystems.Shooter;
+
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,12 +28,15 @@ import org.usfirst.frc.team1261.robot.subsystems.Intake;
  */
 public class Robot extends IterativeRobot {
 
+	public static final Shooter shooter = new Shooter();
 	public static final Climber climber = new Climber();
 	public static final HopperAgitator hopperAgitator = new HopperAgitator();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
 	public static OI oi;
-
+	
+	
+	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -43,8 +50,10 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default Auto", new AutoMoveForward());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
 	}
-
+	
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -110,7 +119,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**
