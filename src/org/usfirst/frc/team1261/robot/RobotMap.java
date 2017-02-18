@@ -19,7 +19,8 @@ public class RobotMap {
 	public static CANTalon climbMotor;
 	public static Encoder leftDriveEncoder;
 	public static Encoder rightDriveEncoder;
-	public static RobotDrive driveTrain;
+	public static CANTalon turretRotationMotor;
+	public static RobotDrive robotDrive;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -33,10 +34,10 @@ public class RobotMap {
 		intakeMotor = new CANTalon(9);
 		climbMotor = new CANTalon(4);
 		hopperAgitatorMotor= new CANTalon(3);
-		leftDriveEncoder = new Encoder(5,7);
-		rightDriveEncoder = new Encoder(6,8);
-		driveTrain = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront, leftDriveMotorRear);
-		//driveTrain = new RobotDrive(leftDriveMotorFront, rightDriveMotorFront);
+		leftDriveEncoder = new Encoder(5, 7);
+		rightDriveEncoder = new Encoder(6, 8);
+		turretRotationMotor = new CANTalon(1);
+		robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront, leftDriveMotorRear);
 	}
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

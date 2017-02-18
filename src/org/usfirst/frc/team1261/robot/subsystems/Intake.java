@@ -22,7 +22,12 @@ public class Intake extends Subsystem {
     	setDefaultCommand(new IntakeRoll());
     }
     
-    public void setIntakePower(double power) { //SETS POWER OF INTAKE MOTOR
+    /**
+     * Sets the intake motor power.
+     * 
+     * @param power The intake motor power, between -1.0 to 1.0.
+     */
+    public void setIntakePower(double power) {
     	intakeMotor.set(power);
     }
     
