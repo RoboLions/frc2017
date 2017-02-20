@@ -2,6 +2,7 @@ package org.usfirst.frc.team1261.robot;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
@@ -15,13 +16,15 @@ public class RobotMap {
 	public static CANTalon leftDriveMotorRear = new CANTalon(7);
 	public static CANTalon rightDriveMotorFront = new CANTalon(6);
 	public static CANTalon rightDriveMotorRear = new CANTalon(8);
+	public static Encoder leftDriveEncoder = new Encoder(5, 7);
+	public static Encoder rightDriveEncoder = new Encoder(6, 8);
 	public static CANTalon intakeMotor = new CANTalon(9);
 	public static CANTalon hopperAgitatorMotor = new CANTalon(3);
 	public static CANTalon climbMotor = new CANTalon(4);
-	public static CANTalon shooterMotor = new CANTalon(2);
-	public static Encoder leftDriveEncoder = new Encoder(5, 7);
-	public static Encoder rightDriveEncoder = new Encoder(6, 8);
-	public static CANTalon turretRotationMotor = new CANTalon(1);
+	public static CANTalon topFlywheelMotor = new CANTalon(39);
+	public static CANTalon bottomFlywheelMotor = new CANTalon(40);
+	public static CANTalon turretRotationMotor = new CANTalon(41);
+	public static Servo turretElevationServo = new Servo(7);
 	public static RobotDrive robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront,
 			leftDriveMotorRear);
 

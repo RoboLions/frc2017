@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
+import org.usfirst.frc.team1261.robot.commands.JoystickFlywheel;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -26,19 +27,26 @@ public class Shooter extends Subsystem {
 	public static final double REQUIRED_FLYWHEEL_SPEED = 200.0;
 	public static final double MINIMUM_FLYWHEEL_SPEED = 600.0;
 
-	CANTalon shooterMotor = RobotMap.shooterMotor;
+	public static final boolean FOLLOWER_MOTOR_REVERSED = false;
+
+	CANTalon leaderFlywheelMotor = RobotMap.topFlywheelMotor;
+	CANTalon followerFlywheelMotor = RobotMap.bottomFlywheelMotor;
 
 	public Shooter() {
-		shooterMotor.setFeedbackDevice(FEEDBACK_DEVICE);
-		shooterMotor.reverseSensor(false);
-		shooterMotor.configEncoderCodesPerRev(MOTOR_ENCODER_CODES_PER_REV);
-		shooterMotor.configNominalOutputVoltage(MOTOR_NOMINAL_OUTPUT_VOLTAGE, -MOTOR_NOMINAL_OUTPUT_VOLTAGE);
-		shooterMotor.configPeakOutputVoltage(MOTOR_PEAK_OUTPUT_VOLTAGE, -MOTOR_PEAK_OUTPUT_VOLTAGE);
-		shooterMotor.setProfile(MOTOR_PIDF_PROFILE);
-		shooterMotor.setF(MOTOR_GAIN_F);
-		shooterMotor.setP(MOTOR_GAIN_P);
-		shooterMotor.setI(MOTOR_GAIN_I);
-		shooterMotor.setD(MOTOR_GAIN_D);
+		leaderFlywheelMotor.setFeedbackDevice(FEEDBACK_DEVICE);
+		leaderFlywheelMotor.reverseSensor(false);
+		leaderFlywheelMotor.configEncoderCodesPerRev(MOTOR_ENCODER_CODES_PER_REV);
+		leaderFlywheelMotor.configNominalOutputVoltage(MOTOR_NOMINAL_OUTPUT_VOLTAGE, -MOTOR_NOMINAL_OUTPUT_VOLTAGE);
+		leaderFlywheelMotor.configPeakOutputVoltage(MOTOR_PEAK_OUTPUT_VOLTAGE, -MOTOR_PEAK_OUTPUT_VOLTAGE);
+		leaderFlywheelMotor.setProfile(MOTOR_PIDF_PROFILE);
+		leaderFlywheelMotor.setF(MOTOR_GAIN_F);
+		leaderFlywheelMotor.setP(MOTOR_GAIN_P);
+		leaderFlywheelMotor.setI(MOTOR_GAIN_I);
+		leaderFlywheelMotor.setD(MOTOR_GAIN_D);
+
+		followerFlywheelMotor.changeControlMode(CANTalon.TalonControlMode.Follower);
+		followerFlywheelMotor.set(leaderFlywheelMotor.getDeviceID());
+		followerFlywheelMotor.reverseOutput(FOLLOWER_MOTOR_REVERSED);
 	}
 
 	// Put methods for controlling this subsystem
@@ -46,25 +54,25 @@ public class Shooter extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new JoystickFlywheel());
 	}
 
 	public CANTalon getShooterMotor() {
-		return shooterMotor;
+		return leaderFlywheelMotor;
 	}
 
 	public void setFlywheelSpeed(double speed) {
-		shooterMotor.changeControlMode(TalonControlMode.Speed);
-		shooterMotor.set(speed);
+		leaderFlywheelMotor.changeControlMode(TalonControlMode.Speed);
+		leaderFlywheelMotor.set(speed);
 	}
 
 	public void setFlywheelPower(double power) {
-		shooterMotor.changeControlMode(TalonControlMode.PercentVbus);
-		shooterMotor.set(power);
+		leaderFlywheelMotor.changeControlMode(TalonControlMode.PercentVbus);
+		leaderFlywheelMotor.set(power);
 	}
 
 	public boolean meetsSpeed(double speed) {
-		return (Math.abs(shooterMotor.getEncVelocity()) >= speed);
+		return (Math.abs(leaderFlywheelMotor.getEncVelocity()) >= speed);
 	}
 
 	/**

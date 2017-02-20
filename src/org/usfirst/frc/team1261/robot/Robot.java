@@ -2,6 +2,7 @@
 package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.AutoMoveForward;
+import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.HopperAgitator;
@@ -44,9 +45,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+
 		autonomousChooser.addDefault("Default Auto", new AutoMoveForward());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", autonomousChooser);
+
+		SmartDashboard.putData("Move to Center", new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
+		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));
+		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
+
+		SmartDashboard.putData(Scheduler.getInstance());
 	}
 
 	/**
@@ -115,5 +123,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putNumber("Flywheel speed: ", turret.getTurretMotor().getEncVelocity());
 	}
 }

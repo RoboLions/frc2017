@@ -21,44 +21,44 @@ public class DriveTrain extends Subsystem {
 	Encoder leftEncoder = RobotMap.leftDriveEncoder;
 	Encoder rightEncoder = RobotMap.rightDriveEncoder;
 	RobotDrive driveTrain = RobotMap.robotDrive;
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new JoystickDrive());
-    }
-    
-    public void stop() {
-    	driveTrain.stopMotor();
-    }
-    
-    public RobotDrive getRobotDrive() {
-    	return driveTrain;
-    }
-    
-    public CANTalon getLeftMotorFront() {
-    	return leftMotorFront;
-    }
-    
-    public CANTalon getLeftMotorRear() {
-    	return leftMotorRear;
-    }
-    
-    public CANTalon getRightMotorFront() {
-    	return rightMotorFront;
-    }
-    
-    public CANTalon getRightMotorRear() {
-    	return rightMotorRear;
-    }
-    
-    public Encoder getLeftEncoder() {
-    	return leftEncoder;
-    }
-    
-    public Encoder getRightEncoder() {
-    	return rightEncoder;
-    }
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new JoystickDrive());
+	}
+
+	public void stop() {
+		driveTrain.stopMotor();
+	}
+
+	public RobotDrive getRobotDrive() {
+		return driveTrain;
+	}
+
+	public CANTalon getLeftMotorFront() {
+		return leftMotorFront;
+	}
+
+	public CANTalon getLeftMotorRear() {
+		return leftMotorRear;
+	}
+
+	public CANTalon getRightMotorFront() {
+		return rightMotorFront;
+	}
+
+	public CANTalon getRightMotorRear() {
+		return rightMotorRear;
+	}
+
+	public Encoder getLeftEncoder() {
+		return leftEncoder;
+	}
+
+	public Encoder getRightEncoder() {
+		return rightEncoder;
+	}
 }

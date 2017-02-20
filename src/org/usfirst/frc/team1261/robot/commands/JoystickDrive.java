@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class JoystickDrive extends Command {
 
-	public static Joystick DRIVER_JOYSTICK = OI.getDriverJoystick();
-	public static final int THROTTLE = OI.AXIS_LEFT_Y;
-	public static final int ROTATE = OI.AXIS_RIGHT_X;
+	public static final Joystick DRIVER_JOYSTICK = OI.getDriverJoystick();
+	public static final int THROTTLE = OI.AXIS_LEFT_STICK_Y;
+	public static final int ROTATE = OI.AXIS_RIGHT_STICK_X;
 	public static final boolean SQUARED_INPUTS = true;
 
 	public JoystickDrive() {
