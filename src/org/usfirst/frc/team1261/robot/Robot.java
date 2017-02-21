@@ -127,6 +127,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Flywheel speed: ", turret.getTurretMotor().getEncVelocity());
+		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
 	}
 }

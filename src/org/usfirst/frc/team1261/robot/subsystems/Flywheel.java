@@ -33,6 +33,8 @@ public class Flywheel extends Subsystem {
 	CANTalon followerFlywheelMotor = RobotMap.bottomFlywheelMotor;
 
 	public Flywheel() {
+		stop(); // reset leader motor to PercentVbus mode and 0% speed 
+
 		leaderFlywheelMotor.setFeedbackDevice(FEEDBACK_DEVICE);
 		leaderFlywheelMotor.reverseSensor(false);
 		leaderFlywheelMotor.configEncoderCodesPerRev(MOTOR_ENCODER_CODES_PER_REV);
