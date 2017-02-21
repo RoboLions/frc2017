@@ -16,8 +16,8 @@ public class Flywheel extends Subsystem {
 
 	public static final FeedbackDevice FEEDBACK_DEVICE = FeedbackDevice.QuadEncoder;
 	public static final int MOTOR_ENCODER_CODES_PER_REV = 1077;
-	public static final float MOTOR_NOMINAL_OUTPUT_VOLTAGE = 0.0f;
-	public static final float MOTOR_PEAK_OUTPUT_VOLTAGE = 12.0f;
+	public static final double MOTOR_NOMINAL_OUTPUT_VOLTAGE = 0.0;
+	public static final double MOTOR_PEAK_OUTPUT_VOLTAGE = 12.0;
 	public static final int MOTOR_PIDF_PROFILE = 0;
 	public static final double MOTOR_GAIN_F = 0.0;
 	public static final double MOTOR_GAIN_P = 0.001;
