@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
-import org.usfirst.frc.team1261.robot.commands.Climb;
 
 import com.ctre.CANTalon;
 
@@ -19,7 +18,6 @@ public class Climber extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new Climb());
 	}
 
 	public void setClimbPower(double power) {

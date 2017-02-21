@@ -9,37 +9,39 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoMoveForward extends Command {
 
-    public AutoMoveForward() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
-    }
+	public static final double SPEED = 0.5; // half speed so it doesn't crash
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.driveTrain.stop();
-    	Robot.driveTrain.getLeftEncoder().reset();
-    	Robot.driveTrain.getRightEncoder().reset();
-    }
+	public AutoMoveForward() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrain);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.driveTrain.getRobotDrive().arcadeDrive(0.5, 0.0); // half speed so it doesn't crash
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Robot.driveTrain.stop();
+		Robot.driveTrain.getLeftEncoder().reset();
+		Robot.driveTrain.getRightEncoder().reset();
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		Robot.driveTrain.getRobotDrive().drive(SPEED, 0.0);
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	Robot.driveTrain.stop();
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		Robot.driveTrain.stop();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

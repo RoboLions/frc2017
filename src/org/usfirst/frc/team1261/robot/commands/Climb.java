@@ -1,9 +1,7 @@
 package org.usfirst.frc.team1261.robot.commands;
 
-import org.usfirst.frc.team1261.robot.OI;
 import org.usfirst.frc.team1261.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,37 +9,37 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Climb extends Command {
 
-	public static Joystick MANIPULATOR_JOYSTICK = OI.getManipulatorJoystick();
 	public static final double POWER = 1.0;
-    public Climb() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.climber);
-    }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.climber.stop();
-    }
+	public Climb() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.climber);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.climber.setClimbPower(POWER);
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Robot.climber.stop();
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		Robot.climber.setClimbPower(POWER);
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	Robot.climber.stop();
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		Robot.climber.stop();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

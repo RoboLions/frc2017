@@ -3,6 +3,7 @@ package org.usfirst.frc.team1261.robot;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Encoder;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -10,37 +11,24 @@ import edu.wpi.first.wpilibj.Encoder;
  * floating around.
  */
 public class RobotMap {
-	public static CANTalon leftDriveMotorFront;
-	public static CANTalon leftDriveMotorRear;
-	public static CANTalon rightDriveMotorFront;
-	public static CANTalon rightDriveMotorRear;
-	public static CANTalon intakeMotor;
-	public static CANTalon hopperAgitatorMotor;
-	public static CANTalon climbMotor;
-	public static CANTalon shooterMotor;
-	public static Encoder leftDriveEncoder;
-	public static Encoder rightDriveEncoder;
-	public static CANTalon turretRotationMotor;
-	public static RobotDrive robotDrive;
-	
+	public static CANTalon leftDriveMotorFront = new CANTalon(5);
+	public static CANTalon leftDriveMotorRear = new CANTalon(7);
+	public static CANTalon rightDriveMotorFront = new CANTalon(6);
+	public static CANTalon rightDriveMotorRear = new CANTalon(8);
+	public static CANTalon intakeMotor = new CANTalon(9);
+	public static CANTalon hopperAgitatorMotor = new CANTalon(3);
+	public static CANTalon climbMotor = new CANTalon(4);
+	public static CANTalon shooterMotor = new CANTalon(2);
+	public static Encoder leftDriveEncoder = new Encoder(5, 7);
+	public static Encoder rightDriveEncoder = new Encoder(6, 8);
+	public static CANTalon turretRotationMotor = new CANTalon(1);
+	public static RobotDrive robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront,
+			leftDriveMotorRear);
+
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
 	// public static int rightMotor = 2;
-	static {
-		leftDriveMotorFront = new CANTalon(5);
-		leftDriveMotorRear = new CANTalon(7);
-		rightDriveMotorFront = new CANTalon(6);
-		rightDriveMotorRear = new CANTalon(8);
-		intakeMotor = new CANTalon(9);
-		climbMotor = new CANTalon(4);
-		hopperAgitatorMotor= new CANTalon(3);
-		shooterMotor = new CANTalon(2);
-		leftDriveEncoder = new Encoder(5, 7);
-		rightDriveEncoder = new Encoder(6, 8);
-		turretRotationMotor = new CANTalon(1);
-		robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront, leftDriveMotorRear);
-	}
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

@@ -61,6 +61,4 @@ public class DriveTrain extends Subsystem {
     public Encoder getRightEncoder() {
     	return rightEncoder;
     }
-    
 }
-

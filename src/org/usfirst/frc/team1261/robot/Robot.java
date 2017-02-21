@@ -30,11 +30,12 @@ public class Robot extends IterativeRobot {
 	public static final HopperAgitator hopperAgitator = new HopperAgitator();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
-	public static OI oi;
 	public static final Turret turret = new Turret();
 
+	public static OI oi;
+
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -43,13 +44,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new AutoMoveForward());
+		autonomousChooser.addDefault("Default Auto", new AutoMoveForward());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		
+		SmartDashboard.putData("Auto mode", autonomousChooser);
 	}
-	
-	
+
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -57,7 +56,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
 	}
 
 	@Override
@@ -78,14 +76,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		autonomousCommand = autonomousChooser.getSelected();
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
@@ -115,9 +106,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
 		Scheduler.getInstance().run();
-		
 	}
 
 	/**

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Turret extends Subsystem {
-	
+
 	public static final int MOTOR_ENCODER_CODES_PER_REV = 0;
 	public static final double MOTOR_NOMINAL_OUTPUT_VOLTAGE = 0.0;
 	public static final double MOTOR_PEAK_OUTPUT_VOLTAGE = 0.0;
@@ -23,9 +23,9 @@ public class Turret extends Subsystem {
 
 	CANTalon turretRotationMotor = RobotMap.turretRotationMotor;
 	// Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	
-	public Turret(){
+	// here. Call these from Commands.
+
+	public Turret() {
 		turretRotationMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		turretRotationMotor.reverseSensor(false);
 		turretRotationMotor.configEncoderCodesPerRev(MOTOR_ENCODER_CODES_PER_REV);
@@ -38,21 +38,21 @@ public class Turret extends Subsystem {
 		turretRotationMotor.setD(MOTOR_D_GAIN);
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	//setDefaultCommand(new Turret());
-    }
-    
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+		// setDefaultCommand(new Turret());
+	}
+
 	public void setTurretPower(double power) {
-        turretRotationMotor.set(power);
-    }
-	
-    public void stop() {
-    	setTurretPower(0.0);
-    }
-    
-    public CANTalon getTurretMotor() {
-    	return turretRotationMotor;
-    }
+		turretRotationMotor.set(power);
+	}
+
+	public void stop() {
+		setTurretPower(0.0);
+	}
+
+	public CANTalon getTurretMotor() {
+		return turretRotationMotor;
+	}
 }
