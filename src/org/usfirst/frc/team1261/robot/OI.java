@@ -75,14 +75,14 @@ public class OI {
 	Button agitatorCCWButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
 	Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
 	Button climbReverseButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
-	Button shooterButton = new JoystickButton(driverJoystick, BUTTON_RIGHT_BUMPER);
+	Button flywheelButton = new JoystickButton(driverJoystick, BUTTON_RIGHT_BUMPER);
 
 	public OI() {
 		intakeInButton.toggleWhenPressed(new IntakeRollIn());
 		intakeOutButton.toggleWhenPressed(new IntakeRollOut());
 		agitatorCWButton.toggleWhenPressed(new HopperAgitatorClockwise());
 		agitatorCCWButton.toggleWhenPressed(new HopperAgitatorCounterclockwise());
-		shooterButton.toggleWhenPressed(new FlywheelOn());
+		flywheelButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
 		climbReverseButton.whileHeld(new ClimbReverse());
 	}

@@ -14,22 +14,22 @@ public class JoystickFlywheel extends Command {
 	public static final Joystick JOYSTICK = OI.getManipulatorJoystick();
 	public static final int JOYSTICK_AXIS = OI.AXIS_RIGHT_TRIGGER;
 
-	public static final double POWER_SCALING_FACTOR = 1.0;
+	public static final double POWER_SCALING_FACTOR = -1.0;
 
     public JoystickFlywheel() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.shooter);
+    	requires(Robot.flywheel);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.stop();
+    	Robot.flywheel.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.setFlywheelPower(JOYSTICK.getRawAxis(JOYSTICK_AXIS) * POWER_SCALING_FACTOR);
+    	Robot.flywheel.setFlywheelPower(JOYSTICK.getRawAxis(JOYSTICK_AXIS) * POWER_SCALING_FACTOR);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -39,7 +39,7 @@ public class JoystickFlywheel extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shooter.stop();
+    	Robot.flywheel.stop();
     }
 
     // Called when another command which requires one or more of the same

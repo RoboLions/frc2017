@@ -7,7 +7,7 @@ import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.HopperAgitator;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
-import org.usfirst.frc.team1261.robot.subsystems.Shooter;
+import org.usfirst.frc.team1261.robot.subsystems.Flywheel;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final Shooter shooter = new Shooter();
+	public static final Flywheel flywheel = new Flywheel();
 	public static final Climber climber = new Climber();
 	public static final HopperAgitator hopperAgitator = new HopperAgitator();
 	public static final DriveTrain driveTrain = new DriveTrain();

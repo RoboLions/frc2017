@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Shooter extends Subsystem {
+public class Flywheel extends Subsystem {
 
 	public static final FeedbackDevice FEEDBACK_DEVICE = FeedbackDevice.QuadEncoder;
 	public static final int MOTOR_ENCODER_CODES_PER_REV = 1077;
@@ -32,7 +32,7 @@ public class Shooter extends Subsystem {
 	CANTalon leaderFlywheelMotor = RobotMap.topFlywheelMotor;
 	CANTalon followerFlywheelMotor = RobotMap.bottomFlywheelMotor;
 
-	public Shooter() {
+	public Flywheel() {
 		leaderFlywheelMotor.setFeedbackDevice(FEEDBACK_DEVICE);
 		leaderFlywheelMotor.reverseSensor(false);
 		leaderFlywheelMotor.configEncoderCodesPerRev(MOTOR_ENCODER_CODES_PER_REV);
@@ -57,7 +57,7 @@ public class Shooter extends Subsystem {
 		setDefaultCommand(new JoystickFlywheel());
 	}
 
-	public CANTalon getShooterMotor() {
+	public CANTalon getFlywheelMotor() {
 		return leaderFlywheelMotor;
 	}
 
@@ -77,7 +77,7 @@ public class Shooter extends Subsystem {
 
 	/**
 	 * Checks if the speed is high enough to allow the ball to <b>exit the
-	 * shooter</b>.
+	 * turret</b>.
 	 * 
 	 * @return A boolean value indicating if the flywheel meets
 	 *         {@link #REQUIRED_FLYWHEEL_SPEED}.

@@ -14,17 +14,17 @@ public class FlywheelOn extends Command {
 	public FlywheelOn() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.shooter);
+		requires(Robot.flywheel);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.shooter.stop();
+		Robot.flywheel.stop();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.shooter.setFlywheelSpeed(MINIMUM_SPEED);
+		Robot.flywheel.setFlywheelSpeed(MINIMUM_SPEED);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -34,7 +34,7 @@ public class FlywheelOn extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.shooter.stop();
+		Robot.flywheel.stop();
 	}
 
 	// Called when another command which requires one or more of the same
