@@ -9,7 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoMoveForward extends Command {
 
-	public static final double SPEED = 0.5; // half speed so it doesn't crash
+	public static final double POWER = 0.75; 
+	public static final int ENCODER_TICKS_PER_REVOLUTION = 1077;
+	public static final double WHEEL_CIRCUMFERENCE = 0.5; //in feet
+	public static final double DISTANCE = 6.0; // also in feet
+	public static final double REVOLUTIONS = DISTANCE/WHEEL_CIRCUMFERENCE;
 
 	public AutoMoveForward() {
 		// Use requires() here to declare subsystem dependencies
@@ -26,12 +30,12 @@ public class AutoMoveForward extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrain.getRobotDrive().drive(SPEED, 0.0);
+		Robot.driveTrain.getRobotDrive().drive(POWER, 0.0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return Robot.driveTrain.getEncoderAverage() >= (ENCODER_TICKS_PER_REVOLUTION * REVOLUTIONS);
 	}
 
 	// Called once after isFinished returns true

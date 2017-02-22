@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
+import org.usfirst.frc.team1261.robot.Robot;
 import org.usfirst.frc.team1261.robot.RobotMap;
 import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
 
@@ -60,5 +61,9 @@ public class DriveTrain extends Subsystem {
 
 	public Encoder getRightEncoder() {
 		return rightEncoder;
+	}
+	
+	public int getEncoderAverage() {
+		return (Robot.driveTrain.getLeftEncoder().get() + Robot.driveTrain.getRightEncoder().get())/2;
 	}
 }
