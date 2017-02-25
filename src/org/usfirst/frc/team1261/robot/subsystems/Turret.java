@@ -23,8 +23,8 @@ public class Turret extends Subsystem {
 	public static final double MOTOR_I_GAIN = 0.0;
 	public static final double MOTOR_D_GAIN = 0.0;
 	
-	public static final double MIN_TURRET_POSITION = -180.0;
-	public static final double MAX_TURRET_POSITION = 180.0;
+	public static final double MIN_TURRET_POSITION = -200.0;
+	public static final double MAX_TURRET_POSITION = 200.0;
 	
 	public static final double MIN_SERVO_POSITION = 0.40;
 	public static final double MAX_SERVO_POSITION = 0.575;
@@ -57,7 +57,14 @@ public class Turret extends Subsystem {
 	}
 	
 	public void setTurretPosition(double angle) {
-		turretRotationMotor.changeControlMode(TalonControlMode.Position);;
+		turretRotationMotor.changeControlMode(TalonControlMode.Position);
+		// TODO: Add proper limiters later. We know this wrong. I just did this to teach Ian git hub stuff
+		if (angle > MAX_TURRET_POSITION) {
+			angle = MIN_TURRET_POSITION;
+		}
+		if (angle < MIN_TURRET_POSITION) {
+			angle = MAX_TURRET_POSITION;
+		}
 		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / (2 * Math.PI));
 	}
 
