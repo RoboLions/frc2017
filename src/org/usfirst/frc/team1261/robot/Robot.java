@@ -5,7 +5,7 @@ import org.usfirst.frc.team1261.robot.commands.AutoMoveForward;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team1261.robot.subsystems.HopperAgitator;
+import org.usfirst.frc.team1261.robot.subsystems.Feeder;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
 import org.usfirst.frc.team1261.robot.subsystems.Flywheel;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 
 	public static final Flywheel flywheel = new Flywheel();
 	public static final Climber climber = new Climber();
-	public static final HopperAgitator hopperAgitator = new HopperAgitator();
+	public static final Feeder feeder = new Feeder();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
 	public static final Turret turret = new Turret();
@@ -128,5 +128,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
+		SmartDashboard.putNumber("Servo Position", turret.getServoPosition());
 	}
 }

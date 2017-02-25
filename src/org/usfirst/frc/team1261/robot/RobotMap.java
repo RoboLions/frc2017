@@ -19,7 +19,7 @@ public class RobotMap {
 	public static Encoder leftDriveEncoder = new Encoder(15, 14);
 	public static Encoder rightDriveEncoder = new Encoder(0, 1);
 	public static CANTalon intakeMotor = new CANTalon(4);
-	public static CANTalon hopperAgitatorMotor = new CANTalon(5);
+	public static CANTalon feederMotor = new CANTalon(5);
 	public static CANTalon climbMotor = new CANTalon(13);
 	public static CANTalon topFlywheelMotor = new CANTalon(39);
 	public static CANTalon bottomFlywheelMotor = new CANTalon(40);

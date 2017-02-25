@@ -3,8 +3,8 @@ package org.usfirst.frc.team1261.robot;
 import org.usfirst.frc.team1261.robot.commands.Climb;
 import org.usfirst.frc.team1261.robot.commands.ClimbReverse;
 import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
-import org.usfirst.frc.team1261.robot.commands.HopperAgitatorClockwise;
-import org.usfirst.frc.team1261.robot.commands.HopperAgitatorCounterclockwise;
+import org.usfirst.frc.team1261.robot.commands.FeederIn;
+import org.usfirst.frc.team1261.robot.commands.FeederOut;
 import org.usfirst.frc.team1261.robot.commands.IntakeRollIn;
 import org.usfirst.frc.team1261.robot.commands.IntakeRollOut;
 
@@ -71,8 +71,8 @@ public class OI {
 
 	Button intakeInButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
 	Button intakeOutButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
-	Button agitatorCWButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
-	Button agitatorCCWButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
+	Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
+	Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
 	Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
 	Button climbReverseButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 	Button flywheelButton = new JoystickButton(driverJoystick, BUTTON_RIGHT_BUMPER);
@@ -80,8 +80,8 @@ public class OI {
 	public OI() {
 		intakeInButton.toggleWhenPressed(new IntakeRollIn());
 		intakeOutButton.toggleWhenPressed(new IntakeRollOut());
-		agitatorCWButton.toggleWhenPressed(new HopperAgitatorClockwise());
-		agitatorCCWButton.toggleWhenPressed(new HopperAgitatorCounterclockwise());
+		feederInButton.toggleWhenPressed(new FeederIn());
+		feederOutButton.toggleWhenPressed(new FeederOut());
 		flywheelButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
 		climbReverseButton.whileHeld(new ClimbReverse());
