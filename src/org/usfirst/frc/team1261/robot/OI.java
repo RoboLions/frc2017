@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.Climb;
-import org.usfirst.frc.team1261.robot.commands.ClimbReverse;
 import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
@@ -74,7 +73,6 @@ public class OI {
 	Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
 	Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
 	Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
-	Button climbReverseButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 	Button flywheelButton = new JoystickButton(driverJoystick, BUTTON_RIGHT_BUMPER);
 
 	public OI() {
@@ -84,7 +82,6 @@ public class OI {
 		feederOutButton.toggleWhenPressed(new FeederOut());
 		flywheelButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
-		climbReverseButton.whileHeld(new ClimbReverse());
 	}
 
 	public static Joystick getDriverJoystick() {
