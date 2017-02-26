@@ -99,15 +99,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		//Find what gear post we're going for, then run that auto
-		if(autoGearChooser.getSelected() == "Left"){
+		if(autoGearChooser.getSelected().equalsIgnoreCase("Left")){
 			//TODO: actually make this a command.
 			//autonomousCommand = leftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
 		}
-		else if(autoGearChooser.getSelected() == "Middle"){
+		else if(autoGearChooser.getSelected().equalsIgnoreCase("Middle")){
 			//TODO: actually make this a command.
 			//autonomousCommand = middleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
-		else if(autoGearChooser.getSelected() == "Right"){
+		else if(autoGearChooser.getSelected().equalsIgnoreCase("Right")){
 			//TODO: actually make this a command.
 			//autonomousCommand = rightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
 		}

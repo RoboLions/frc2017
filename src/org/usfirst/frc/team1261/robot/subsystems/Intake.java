@@ -31,6 +31,10 @@ public class Intake extends Subsystem {
 	public void setIntakePower(double power) {
 		intakeMotor.set(power);
 	}
+	
+	public double getIntakePower(){
+		return intakeMotor.get();
+	}
 
 	public void stop() {
 		setIntakePower(0.0);
