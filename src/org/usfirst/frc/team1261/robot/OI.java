@@ -1,12 +1,13 @@
 package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.Climb;
-import org.usfirst.frc.team1261.robot.commands.ClimbReverse;
 import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
 import org.usfirst.frc.team1261.robot.commands.IntakeRollIn;
 import org.usfirst.frc.team1261.robot.commands.IntakeRollOut;
+import org.usfirst.frc.team1261.robot.commands.IntakeToggle;
+import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -69,22 +70,20 @@ public class OI {
 	static Joystick driverJoystick = new Joystick(DRIVER_JOYSTICK);
 	static Joystick manipulatorJoystick = new Joystick(MANIPULATOR_JOYSTICK);
 
-	Button intakeInButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
-	Button intakeOutButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
+	Button intakeToggleButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
 	Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
 	Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
+	Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
 	Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
-	Button climbReverseButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 	Button flywheelButton = new JoystickButton(driverJoystick, BUTTON_RIGHT_BUMPER);
 
 	public OI() {
-		intakeInButton.toggleWhenPressed(new IntakeRollIn());
-		intakeOutButton.toggleWhenPressed(new IntakeRollOut());
+		intakeToggleButton.whenPressed(new IntakeToggle());
 		feederInButton.toggleWhenPressed(new FeederIn());
 		feederOutButton.toggleWhenPressed(new FeederOut());
 		flywheelButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
-		climbReverseButton.whileHeld(new ClimbReverse());
+		shakeRobotButton.whileHeld(new ShakeRobot());
 	}
 
 	public static Joystick getDriverJoystick() {

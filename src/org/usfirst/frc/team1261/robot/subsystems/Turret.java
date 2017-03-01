@@ -67,6 +67,10 @@ public class Turret extends Subsystem {
 		}
 		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / (2 * Math.PI));
 	}
+	
+	public double getTurretPosition() {
+		return turretRotationMotor.get();
+	}
 
 	/*
 	 * DO NOT TOUCH ANY SERVO CODE WITHOUT EXPLICIT CONSENT FROM CHRIS. SERVO

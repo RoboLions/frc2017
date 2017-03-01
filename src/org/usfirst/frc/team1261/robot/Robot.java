@@ -36,7 +36,10 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+	SendableChooser<String> autoTeamChooser = new SendableChooser<>();
+	SendableChooser<String> autoStartChooser = new SendableChooser<>();
+	SendableChooser<String> autoGearChooser = new SendableChooser<>();
+	SendableChooser<String> autoBaselineChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,11 +48,22 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		SmartDashboard.putNumber("Auto Delay", 0.0);
 
-		autonomousChooser.addDefault("Default Auto", new AutoMoveForward());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", autonomousChooser);
-
+		autoTeamChooser.addDefault("Red", "Red");
+		autoTeamChooser.addObject("Blue", "Blue");
+		
+		autoStartChooser.addObject("Left", "Left");
+		autoStartChooser.addDefault("Middle", "Middle");
+		autoStartChooser.addObject("Right", "Right");
+		
+		autoGearChooser.addObject("Left", "Left");
+		autoGearChooser.addDefault("Middle", "Middle");
+		autoGearChooser.addObject("Right", "Right");
+		
+		autoBaselineChooser.addDefault("Left", "Left");
+		autoBaselineChooser.addObject("Right", "Right");
+		
 		SmartDashboard.putData("Move to Center", new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
 		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));
 		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
@@ -84,9 +98,21 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = autonomousChooser.getSelected();
-
-		// schedule the autonomous command (example)
+		//Find what gear post we're going for, then run that auto
+		if(autoGearChooser.getSelected().equalsIgnoreCase("Left")){
+			//TODO: actually make this a command.
+			//autonomousCommand = leftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+		}
+		else if(autoGearChooser.getSelected().equalsIgnoreCase("Middle")){
+			//TODO: actually make this a command.
+			//autonomousCommand = middleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
+		}
+		else if(autoGearChooser.getSelected().equalsIgnoreCase("Right")){
+			//TODO: actually make this a command.
+			//autonomousCommand = rightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+		}
+		
+		// schedule the autonomous command
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -128,6 +154,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
-		SmartDashboard.putNumber("Servo Position", turret.getServoPosition());
+		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
+		SmartDashboard.putNumber("Turret Position: ", turret.getTurretPosition());
+		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoder().get());
+		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoder().get());
 	}
 }
