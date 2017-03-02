@@ -59,12 +59,6 @@ public class Turret extends Subsystem {
 	public void setTurretPosition(double angle) {
 		turretRotationMotor.changeControlMode(TalonControlMode.Position);
 		// TODO: Add proper limiters later. We know this wrong. I just did this to teach Ian git hub stuff
-		if (angle > MAX_TURRET_POSITION) {
-			angle = MIN_TURRET_POSITION;
-		}
-		if (angle < MIN_TURRET_POSITION) {
-			angle = MAX_TURRET_POSITION;
-		}
 		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / (2 * Math.PI));
 	}
 	

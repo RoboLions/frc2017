@@ -3,6 +3,9 @@ package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.AutoMoveForward;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
+import org.usfirst.frc.team1261.robot.commands.leftGearAuto;
+import org.usfirst.frc.team1261.robot.commands.middleGearAuto;
+import org.usfirst.frc.team1261.robot.commands.rightGearAuto;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.Feeder;
@@ -100,16 +103,13 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		//Find what gear post we're going for, then run that auto
 		if(autoGearChooser.getSelected().equalsIgnoreCase("Left")){
-			//TODO: actually make this a command.
-			//autonomousCommand = leftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+			autonomousCommand = new leftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		else if(autoGearChooser.getSelected().equalsIgnoreCase("Middle")){
-			//TODO: actually make this a command.
-			//autonomousCommand = middleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
+			autonomousCommand = new middleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		else if(autoGearChooser.getSelected().equalsIgnoreCase("Right")){
-			//TODO: actually make this a command.
-			//autonomousCommand = rightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+			autonomousCommand = new rightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		
 		// schedule the autonomous command
