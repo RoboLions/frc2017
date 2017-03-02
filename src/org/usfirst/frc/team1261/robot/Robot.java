@@ -155,7 +155,7 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
 		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
-		SmartDashboard.putNumber("Turret Position: ", turret.getTurretPosition());
+		SmartDashboard.putNumber("Turret Position: ", turret.getTurretAngle());
 		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoder().get());
 		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoder().get());
 	}
