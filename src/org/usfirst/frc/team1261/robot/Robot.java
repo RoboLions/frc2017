@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<String> autoTeamChooser = new SendableChooser<>();
-	SendableChooser<String> autoStartChooser = new SendableChooser<>();
+	SendableChooser<String> autoStartChooser = new SendableChooser<>();	
 	SendableChooser<String> autoGearChooser = new SendableChooser<>();
 	SendableChooser<String> autoBaselineChooser = new SendableChooser<>();
 
@@ -63,6 +63,11 @@ public class Robot extends IterativeRobot {
 		
 		autoBaselineChooser.addDefault("Left", "Left");
 		autoBaselineChooser.addObject("Right", "Right");
+		
+		SmartDashboard.putData("Team Color", autoTeamChooser);
+		SmartDashboard.putData("Starting Position", autoStartChooser);
+		SmartDashboard.putData("Gear Post Position", autoGearChooser);
+		SmartDashboard.putData("Baseline Crossing Side", autoBaselineChooser);
 		
 		SmartDashboard.putData("Move to Center", new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
 		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));

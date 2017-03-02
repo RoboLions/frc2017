@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
+import org.usfirst.frc.team1261.robot.commands.JoystickTurret;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -50,6 +51,7 @@ public class Turret extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new JoystickTurret());
 	}
 
 	public void setTurretPower(double power) {
@@ -62,7 +64,7 @@ public class Turret extends Subsystem {
 	}
 	
 	public double getTurretPosition() {
-		return turretRotationMotor.get();
+		return turretRotationMotor.getPosition();
 	}
 
 	/*
