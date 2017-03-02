@@ -23,10 +23,10 @@ public class Turret extends Subsystem {
 	public static final double MOTOR_P_GAIN = 0.0;
 	public static final double MOTOR_I_GAIN = 0.0;
 	public static final double MOTOR_D_GAIN = 0.0;
-	
-	public static final double MIN_TURRET_POSITION = -180.0;
-	public static final double MAX_TURRET_POSITION = 180.0;
-	
+
+	public static final double MIN_TURRET_ANGLE = -200.0;
+	public static final double MAX_TURRET_ANGLE = 200.0;
+
 	public static final double MIN_SERVO_POSITION = 0.40;
 	public static final double MAX_SERVO_POSITION = 0.575;
 
@@ -57,14 +57,40 @@ public class Turret extends Subsystem {
 	public void setTurretPower(double power) {
 		turretRotationMotor.set(power);
 	}
-	
-	public void setTurretPosition(double angle) {
-		turretRotationMotor.changeControlMode(TalonControlMode.Position);;
-		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / (2 * Math.PI));
+
+	/**
+	 * Changes turret rotation motor control mode to
+	 * {@link TalonControlMode#Position}, and sets the heading the turret is
+	 * facing, capped between {@link #MIN_TURRET_ANGLE} and
+	 * {@link #MAX_TURRET_ANGLE}.
+	 * 
+	 * @param angle
+	 *            Angle, in degrees.
+	 */
+	public void setTurretAngle(double angle) {
+		turretRotationMotor.changeControlMode(TalonControlMode.Position);
+
+		if (angle > MAX_TURRET_ANGLE) {
+			angle = MAX_TURRET_ANGLE;
+		} else if (angle < MIN_TURRET_ANGLE) {
+			angle = MIN_TURRET_ANGLE;
+		}
+
+		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / 360.0);
 	}
 	
 	public double getTurretPosition() {
 		return turretRotationMotor.getPosition();
+	}
+
+	/**
+	 * Returns the heading the turret is facing.
+	 * 
+	 * @return Angle, in degrees.
+	 */
+	public double getTurretAngle() {
+		return (turretRotationMotor.get() * 360.0 / MOTOR_ENCODER_TICKS_PER_REV);
+//>>>>>>> 2928885723344580fae33ed8ee303d4a3a167f12
 	}
 
 	/*

@@ -1,11 +1,9 @@
 package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.Climb;
-import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
-import org.usfirst.frc.team1261.robot.commands.IntakeRollIn;
-import org.usfirst.frc.team1261.robot.commands.IntakeRollOut;
+import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.IntakeToggle;
 import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
 

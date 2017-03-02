@@ -1,13 +1,15 @@
 
 package org.usfirst.frc.team1261.robot;
 
-import org.usfirst.frc.team1261.robot.commands.AutoMoveForward;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
+import org.usfirst.frc.team1261.robot.commands.LeftGearAuto;
+import org.usfirst.frc.team1261.robot.commands.MiddleGearAuto;
+import org.usfirst.frc.team1261.robot.commands.RightGearAuto;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.Feeder;
-import org.usfirst.frc.team1261.robot.subsystems.Intake;
 import org.usfirst.frc.team1261.robot.subsystems.Flywheel;
+import org.usfirst.frc.team1261.robot.subsystems.Intake;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -106,16 +108,13 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		//Find what gear post we're going for, then run that auto
 		if(autoGearChooser.getSelected().equalsIgnoreCase("Left")){
-			//TODO: actually make this a command.
-			//autonomousCommand = leftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+			autonomousCommand = new LeftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		else if(autoGearChooser.getSelected().equalsIgnoreCase("Middle")){
-			//TODO: actually make this a command.
-			//autonomousCommand = middleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
+			autonomousCommand = new MiddleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		else if(autoGearChooser.getSelected().equalsIgnoreCase("Right")){
-			//TODO: actually make this a command.
-			//autonomousCommand = rightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0))
+			autonomousCommand = new RightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
 		}
 		
 		// schedule the autonomous command
@@ -161,7 +160,7 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
 		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
-		SmartDashboard.putNumber("Turret Position: ", turret.getTurretPosition());
+		SmartDashboard.putNumber("Turret Position: ", turret.getTurretAngle());
 		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoder().get());
 		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoder().get());
 	}
