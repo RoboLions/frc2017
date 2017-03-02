@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -24,6 +25,13 @@ public class DriveTrain extends Subsystem {
 	RobotDrive driveTrain = RobotMap.robotDrive;
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
+
+	public DriveTrain() {
+		driveTrain.setInvertedMotor(MotorType.kFrontLeft, true);
+		driveTrain.setInvertedMotor(MotorType.kFrontRight, true);
+		driveTrain.setInvertedMotor(MotorType.kRearLeft, false);
+		driveTrain.setInvertedMotor(MotorType.kRearRight, true);
+	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.

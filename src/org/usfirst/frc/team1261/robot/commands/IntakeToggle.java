@@ -26,7 +26,6 @@ public class IntakeToggle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	currentIntakeSpeed = Robot.intake.getIntakePower();
     	
     	if(currentIntakeSpeed > 0.0){
     		newIntakeSpeed = 0.0;
@@ -52,6 +51,7 @@ public class IntakeToggle extends Command {
     	
     	SmartDashboard.putBoolean("Intake Stop", isStopped);
     	SmartDashboard.putBoolean("Intake Reverse", isReversed);
+    	currentIntakeSpeed = Robot.intake.getIntakePower();
     }
 
     // Make this return true when this Command no longer needs to run execute()

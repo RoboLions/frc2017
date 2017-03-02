@@ -74,6 +74,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
 
 		SmartDashboard.putData(Scheduler.getInstance());
+		
 	}
 
 	/**
