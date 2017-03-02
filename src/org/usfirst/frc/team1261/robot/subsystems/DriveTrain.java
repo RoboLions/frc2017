@@ -1,13 +1,11 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
-import org.usfirst.frc.team1261.robot.Robot;
 import org.usfirst.frc.team1261.robot.RobotMap;
 import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -65,6 +63,6 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public int distanceTraveled() {
-		return (Robot.driveTrain.getLeftEncoder().get() + Robot.driveTrain.getRightEncoder().get())/2;
+		return (leftEncoder.get() + rightEncoder.get()) / 2;
 	}
 }
