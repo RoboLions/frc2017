@@ -32,15 +32,15 @@ public class JetsonCommunicationAdapter {
 	}
 	
 	/**
-	 * Gets the distance (horizontal) to the target
+	 * Gets the distance (horizontal) to the boiler.
 	 * 
-	 * @return The target angle for the shooter
+	 * @return The distance to the boiler, in meters.
 	 * @throws NoContoursFoundException
-	 *             If no contours representing goals can be identified.
+	 *             If no contours representing boilers can be identified.
 	 */
 	public static double getDistance() throws NoContoursFoundException {
-		boolean isContourFound = CONTOUR_TABLE.getBoolean("contourFound", false);
-		if (!isContourFound) {
+		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", false);
+		if (!isBoilerFound) {
 			throw new NoContoursFoundException();
 		} else {
 			return CONTOUR_TABLE.getNumber("distance", DEFAULT_VALUE);
@@ -48,15 +48,15 @@ public class JetsonCommunicationAdapter {
 	}
 	
 	/**
-	 * Gets the target angle for the shooter
+	 * Gets the target angle for the boiler.
 	 * 
-	 * @return The target angle for the shooter
+	 * @return The target angle for the boiler.
 	 * @throws NoContoursFoundException
-	 *             If no contours representing goals can be identified.
+	 *             If no contours representing boilers can be identified.
 	 */
-	public static double getAngleTarget() throws NoContoursFoundException {
-		boolean isContourFound = CONTOUR_TABLE.getBoolean("contourFound", false);
-		if (!isContourFound) {
+	public static double getBoilerAngleTarget() throws NoContoursFoundException {
+		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", false);
+		if (!isBoilerFound) {
 			throw new NoContoursFoundException();
 		} else {
 			return CONTOUR_TABLE.getNumber("theta", DEFAULT_VALUE);
@@ -64,19 +64,18 @@ public class JetsonCommunicationAdapter {
 	}
 	
 	/**
-	 * Gets the x-axis offset of the center of the goal from where the shooter
-	 * arm is pointing.
+	 * Gets the x-axis offset of the boiler from where the turret is pointing.
 	 * 
-	 * @return The x-axis offset of the center of the goal in pixels.
+	 * @return The x-axis offset of the boiler in pixels.
 	 * @throws NoContoursFoundException
-	 *             If no contours representing goals can be identified.
+	 *             If no contours representing boilers can be identified.
 	 */
 	public static double getTargetXOffset() throws NoContoursFoundException {
 		return X_AXIS_TARGET - getX();
 	}
 
 	/**
-	 * Gets the target velocity for the fuel
+	 * Gets the target velocity for the fuel.
 	 * 
 	 * @return The target velocity for the fuel.
 	 * @throws NoContoursFoundException
