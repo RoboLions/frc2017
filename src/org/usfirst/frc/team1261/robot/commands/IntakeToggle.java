@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1261.robot.commands;
 
 import org.usfirst.frc.team1261.robot.Robot;
-import org.usfirst.frc.team1261.robot.subsystems.Intake.MotorState;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
