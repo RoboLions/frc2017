@@ -19,15 +19,15 @@ public class JetsonCommunicationAdapter {
 	
 	public static final double DEFAULT_Y_IMAGE_SIZE = 240;
 	public static final double DEFAULT_X_IMAGE_SIZE = 320;
-	public static final double Y_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeY", DEFAULT_Y_IMAGE_SIZE);
-	public static final double X_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeX", DEFAULT_X_IMAGE_SIZE);
+	public static final double BOILER_Y_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeY", DEFAULT_Y_IMAGE_SIZE);
+	public static final double BOILER_X_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeX", DEFAULT_X_IMAGE_SIZE);
 	
 	public static final double GEAR_Y_IMAGE_SIZE = CONTOUR_TABLE.getNumber("GearImageSizeY", DEFAULT_Y_IMAGE_SIZE);
 	public static final double GEAR_X_IMAGE_SIZE = CONTOUR_TABLE.getNumber("GearImageSizeX", DEFAULT_X_IMAGE_SIZE);
 	
 	
-	public static final double X_AXIS_TARGET = X_IMAGE_SIZE / 2;
-	public static final double X_AXIS_TOLERANCE = X_IMAGE_SIZE * TOLERANCE_FACTOR;
+	public static final double BOILER_X_AXIS_TARGET = BOILER_X_IMAGE_SIZE / 2;
+	public static final double BOILER_X_AXIS_TOLERANCE = BOILER_X_IMAGE_SIZE * TOLERANCE_FACTOR;
 
 	public static final double GEAR_X_AXIS_TARGET = GEAR_X_IMAGE_SIZE / 2; // TODO: FIX THIS PLEASE - Terry
 	public static final double GEAR_X_AXIS_TOLERANCE = GEAR_X_IMAGE_SIZE * GEAR_TOLERANCE_FACTOR; // TODO: FIX THIS PLEASE - Terry
@@ -109,7 +109,7 @@ public class JetsonCommunicationAdapter {
 	 *             If no contours representing boilers can be identified.
 	 */
 	public static double getTurretXOffset() throws NoContoursFoundException {
-		return X_AXIS_TARGET - getTurretX();
+		return BOILER_X_AXIS_TARGET - getTurretX();
 	}
 
 	/**
