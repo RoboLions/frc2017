@@ -23,6 +23,9 @@ public class JetsonCommunicationAdapter {
 	public static final double X_AXIS_TARGET = X_IMAGE_SIZE / 2;
 	public static final double X_AXIS_TOLERANCE = X_IMAGE_SIZE * TOLERANCE_FACTOR;
 
+	public static final double GEAR_X_AXIS_TARGET = X_IMAGE_SIZE / 2; // TODO: FIX THIS PLEASE - Terry
+	public static final double GEAR_X_AXIS_TOLERANCE = X_IMAGE_SIZE * TOLERANCE_FACTOR; // TODO: FIX THIS PLEASE - Terry
+	
 	/**
 	 * Value used for x, y, and area of target when it cannot be retrieved.
 	 */
@@ -47,6 +50,34 @@ public class JetsonCommunicationAdapter {
 			return CONTOUR_TABLE.getNumber("distance", DEFAULT_VALUE);
 		}
 	}
+	
+	/**
+	 * Gets the center x (pixels) of the Gear.
+	 * 
+	 * @return (x_Gear) the center x in pixels of the two contours of the Gear Peg.
+	 * @throws NoContoursFoundException
+	 *             If no contours representing Gear can be identified.
+	 */
+	public static double getGearX() throws NoContoursFoundException {
+		boolean isPegFound = CONTOUR_TABLE.getBoolean("Gear_Found", false);
+		if (!isPegFound) {
+			throw new NoContoursFoundException();
+		} else {
+			return CONTOUR_TABLE.getNumber("x_Gear", DEFAULT_VALUE);
+		}
+	}
+	
+	/**
+	 * Gets the x-axis offset of the boiler from where the turret is pointing.
+	 * 
+	 * @return The x-axis offset of the boiler in pixels.
+	 * @throws NoContoursFoundException
+	 *             If no contours representing boilers can be identified.
+	 */
+	public static double getGearXOffset() throws NoContoursFoundException {
+		return GEAR_X_AXIS_TARGET - getGearX();
+	}
+
 
 	/**
 	 * Gets the target angle for the boiler.
@@ -116,5 +147,16 @@ public class JetsonCommunicationAdapter {
 	 */
 	public static boolean isBoilerFound() {
 		return CONTOUR_TABLE.getBoolean("Boiler_Found", false);
+	}
+	
+	/**
+	 * Returns a boolean indicating whether or not a contour representing the
+	 * Gear_Peg could be identified.
+	 * 
+	 * @return {@code true} if the contour representing the Gear/Peg could be
+	 *         identified, {@code false} otherwise.
+	 */
+	public static boolean isGearFound() {
+		return CONTOUR_TABLE.getBoolean("Gear_Found", false);
 	}
 }
