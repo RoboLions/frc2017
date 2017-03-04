@@ -41,7 +41,7 @@ public class RobotMap {
 	public static Servo turretElevationServo = new Servo(TURRET_SERVO_PORT	);
 	
 	public static RobotDrive robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront,
-			leftDriveMotorRear);
+			rightDriveMotorRear);
 	
 	public static Encoder leftDriveEncoder = new Encoder(15, 14);
 	public static Encoder rightDriveEncoder = new Encoder(0, 1);
