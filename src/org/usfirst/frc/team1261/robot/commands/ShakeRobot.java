@@ -14,7 +14,7 @@ public class ShakeRobot extends Command {
 
 	private int limitRight = 0;
 	private int limitLeft = 0;
-	private boolean shakeRight = true;
+	private boolean shakeLeft = true;
 
 	public ShakeRobot() {
 		// Use requires() here to declare subsystem dependencies
@@ -26,21 +26,21 @@ public class ShakeRobot extends Command {
 	protected void initialize() {
 		Robot.driveTrain.stop();
 
-		int encValue = Robot.driveTrain.getLeftEncoder().get();
+		int encValue = Robot.driveTrain.getRightEncoderPosition();
 		limitLeft = encValue - ENCODER_CHANGE_RELATIVE;
 		limitRight = encValue + ENCODER_CHANGE_RELATIVE;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		int encValue = Robot.driveTrain.getLeftEncoder().get();
+		int encValue = Robot.driveTrain.getRightEncoderPosition();
 
-		if (shakeRight) {
-			Robot.driveTrain.getRobotDrive().setLeftRightMotorOutputs(POWER, -POWER);
-			shakeRight = (encValue < limitRight);
-		} else {
+		if (shakeLeft) {
 			Robot.driveTrain.getRobotDrive().setLeftRightMotorOutputs(-POWER, POWER);
-			shakeRight = (encValue < limitLeft);
+			shakeLeft = (encValue < limitRight);
+		} else {
+			Robot.driveTrain.getRobotDrive().setLeftRightMotorOutputs(POWER, -POWER);
+			shakeLeft = (encValue < limitLeft);
 		}
 	}
 

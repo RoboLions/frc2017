@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
 
-	public enum MotorState {
+	public enum MotorDirection {
 		FORWARD, BACKWARD, STOP
 	}
 
-	MotorState currentState = MotorState.STOP;
+	private double intakePower = 0.0;
 
 	CANTalon intakeMotor = RobotMap.intakeMotor;
 	// Put methods for controlling this subsystem
@@ -36,24 +36,34 @@ public class Intake extends Subsystem {
 	 *            The intake motor power, between -1.0 to 1.0.
 	 */
 	public void setIntakePower(double power) {
-		intakeMotor.set(power);
-		if (power > 0)
-			currentState = MotorState.FORWARD;
-		if (power < 0)
-			currentState = MotorState.BACKWARD;
+		intakePower = power;
+		setIntakePower();
+	}
+
+	/**
+	 * Sets the intake motor power to the predefined value, set using
+	 * {@link #setIntakePower(double)}.
+	 */
+	public void setIntakePower() {
+		intakeMotor.set(intakePower);
 	}
 
 	public double getIntakePower() {
-		return intakeMotor.get();
+		return intakePower;
 	}
 
-	public MotorState getMotorState() {
-		return currentState;
+	public MotorDirection getMotorState() {
+		if (intakePower > 0) {
+			return MotorDirection.FORWARD;
+		} else if (intakePower < 0) {
+			return MotorDirection.BACKWARD;
+		} else {
+			return MotorDirection.STOP;
+		}
 	}
 
 	public void stop() {
 		setIntakePower(0.0);
-		currentState = MotorState.STOP;
 	}
 
 	public CANTalon getIntakeMotor() {

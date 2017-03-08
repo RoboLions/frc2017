@@ -16,27 +16,44 @@ public class JetsonCommunicationAdapter {
 
 	public static final double TOLERANCE_FACTOR = 0.02;
 	public static final double GEAR_TOLERANCE_FACTOR = 0.02;
-	
-	public static final double DEFAULT_Y_IMAGE_SIZE = 240;
-	public static final double DEFAULT_X_IMAGE_SIZE = 320;
+
+	public static final double DEFAULT_Y_IMAGE_SIZE = 360;
+	public static final double DEFAULT_X_IMAGE_SIZE = 640;
+
 	public static final double BOILER_Y_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeY", DEFAULT_Y_IMAGE_SIZE);
 	public static final double BOILER_X_IMAGE_SIZE = CONTOUR_TABLE.getNumber("imageSizeX", DEFAULT_X_IMAGE_SIZE);
-	
+
 	public static final double GEAR_Y_IMAGE_SIZE = CONTOUR_TABLE.getNumber("GearImageSizeY", DEFAULT_Y_IMAGE_SIZE);
 	public static final double GEAR_X_IMAGE_SIZE = CONTOUR_TABLE.getNumber("GearImageSizeX", DEFAULT_X_IMAGE_SIZE);
-	
-	
+
 	public static final double BOILER_X_AXIS_TARGET = BOILER_X_IMAGE_SIZE / 2;
 	public static final double BOILER_X_AXIS_TOLERANCE = BOILER_X_IMAGE_SIZE * TOLERANCE_FACTOR;
 
-	public static final double GEAR_X_AXIS_TARGET = GEAR_X_IMAGE_SIZE / 2; // TODO: FIX THIS PLEASE - Terry
-	public static final double GEAR_X_AXIS_TOLERANCE = GEAR_X_IMAGE_SIZE * GEAR_TOLERANCE_FACTOR; // TODO: FIX THIS PLEASE - Terry
-	
+	public static final double GEAR_X_AXIS_TARGET = GEAR_X_IMAGE_SIZE / 2; // TODO:
+																			// FIX
+																			// THIS
+																			// PLEASE
+																			// -
+																			// Terry
+	public static final double GEAR_X_AXIS_TOLERANCE = GEAR_X_IMAGE_SIZE * GEAR_TOLERANCE_FACTOR; // TODO:
+																									// FIX
+																									// THIS
+																									// PLEASE
+																									// -
+																									// Terry
+
 	/**
 	 * Value used for x, y, and area of target when it cannot be retrieved.
 	 */
 	public static final double DEFAULT_VALUE = 0.0;
 
+	/**
+	 * Notify the Jetson whether the shooter is currently firing.
+	 * 
+	 * @param firing
+	 *            A boolean value that represents if the shooter is currently
+	 *            firing.
+	 */
 	public static void setShooterFired(boolean firing) {
 		CONTOUR_TABLE.putBoolean("shooterFiring", firing);
 	}
@@ -56,11 +73,12 @@ public class JetsonCommunicationAdapter {
 			return CONTOUR_TABLE.getNumber("distance", DEFAULT_VALUE);
 		}
 	}
-	
+
 	/**
 	 * Gets the center x (pixels) of the Gear.
 	 * 
-	 * @return (x_Gear) the center x in pixels of the two contours of the Gear Peg.
+	 * @return (x_Gear) the center x in pixels of the two contours of the Gear
+	 *         Peg.
 	 * @throws NoContoursFoundException
 	 *             If no contours representing Gear can be identified.
 	 */
@@ -72,7 +90,7 @@ public class JetsonCommunicationAdapter {
 			return CONTOUR_TABLE.getNumber("x_Gear", DEFAULT_VALUE);
 		}
 	}
-	
+
 	/**
 	 * Gets the x-axis offset of the boiler from where the turret is pointing.
 	 * 
@@ -83,7 +101,6 @@ public class JetsonCommunicationAdapter {
 	public static double getGearXOffset() throws NoContoursFoundException {
 		return GEAR_X_AXIS_TARGET - getGearX();
 	}
-
 
 	/**
 	 * Gets the target angle for the boiler.
@@ -154,15 +171,25 @@ public class JetsonCommunicationAdapter {
 	public static boolean isBoilerFound() {
 		return CONTOUR_TABLE.getBoolean("Boiler_Found", false);
 	}
-	
+
 	/**
 	 * Returns a boolean indicating whether or not a contour representing the
-	 * Gear_Peg could be identified.
+	 * gear peg could be identified.
 	 * 
-	 * @return {@code true} if the contour representing the Gear/Peg could be
+	 * @return {@code true} if the contour representing the gear peg could be
 	 *         identified, {@code false} otherwise.
 	 */
 	public static boolean isGearFound() {
 		return CONTOUR_TABLE.getBoolean("Gear_Found", false);
+	}
+
+	/**
+	 * Returns a boolean indicating whether or not the Jetson is connected.
+	 * 
+	 * @return {@code true} if the Jetson has reported that it is connected,
+	 *         {@code false} otherwise.
+	 */
+	public static boolean isOnline() {
+		return CONTOUR_TABLE.getBoolean("Jetson_Online", false);
 	}
 }

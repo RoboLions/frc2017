@@ -2,7 +2,6 @@ package org.usfirst.frc.team1261.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  * A {@link PIDController} for the {@link DriveTrain} that does nothing.
@@ -33,16 +32,12 @@ public class DisabledDriveTrainPIDController extends PIDController {
 	}
 
 	/**
-	 * Return {@code true} if the error is within the tolerance determined by
-	 * {@link DisabledDriveTrainPIDController#DEFAULT_TOLERANCE}.<br>
-	 * <em>This method overrides {@link PIDSubsystem}'s
-	 * {@link PIDSubsystem#onTarget onTarget} method as a workaround for
-	 * <a href="https://usfirst.collab.net/sf/tracker/do/viewArtifact/projects.wpilib/tracker.4_defects/artf4812">
-	 * a bug in WPILib's implementation</a>.</em>
+	 * Return {@code false} since a disabled PID controller can never be on
+	 * target.
 	 * 
-	 * @return {@code true} if the error is less than the tolerance.
+	 * @return {@code false}.
 	 */
 	public boolean onTarget() {
-		return (Math.abs(getError()) < DEFAULT_TOLERANCE);
+		return false;
 	}
 }

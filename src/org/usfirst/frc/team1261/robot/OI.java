@@ -3,7 +3,6 @@ package org.usfirst.frc.team1261.robot;
 import org.usfirst.frc.team1261.robot.commands.Climb;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
-import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.IntakeToggle;
 import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
 
@@ -79,7 +78,7 @@ public class OI {
 		intakeToggleButton.whenPressed(new IntakeToggle());
 		feederInButton.toggleWhenPressed(new FeederIn());
 		feederOutButton.toggleWhenPressed(new FeederOut());
-		flywheelButton.toggleWhenPressed(new FlywheelOn());
+		//flywheelButton.toggleWhenPressed(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
 		shakeRobotButton.whileHeld(new ShakeRobot());
 	}

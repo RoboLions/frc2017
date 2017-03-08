@@ -6,7 +6,6 @@ import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -27,14 +26,15 @@ public class DriveTrain extends Subsystem {
 	public static final double MOTOR_GAIN_I = 0.0;
 	public static final double MOTOR_GAIN_D = 0.0;
 
+	// Not actually used in this subsystem, but can be used by autonomous commands
+	public static final double DEFAULT_VOLTAGE_RAMP_RATE = 8.0;
+
 	CANTalon leftMotorFront = RobotMap.leftDriveMotorFront;
 	CANTalon leftMotorRear = RobotMap.leftDriveMotorRear;
 	CANTalon rightMotorFront = RobotMap.rightDriveMotorFront;
 	CANTalon rightMotorRear = RobotMap.rightDriveMotorRear;
-	Encoder leftEncoder = RobotMap.leftDriveEncoder;
-	Encoder rightEncoder = RobotMap.rightDriveEncoder;
 	RobotDrive driveTrain = RobotMap.robotDrive;
-	
+
 	// Change this to change the default PIDController for the DriveTrain.
 	PIDController controller = new DisabledDriveTrainPIDController(this);
 
@@ -63,11 +63,12 @@ public class DriveTrain extends Subsystem {
 		private PIDController getPIDControllerForDriveTrain(DriveTrain driveTrain) {
 			switch (this) {
 			/*
+			 * case DISTANCE: return new
+			 * DistanceBasedDriveTrainPIDController(driveTrain); case ANGLE:
+			 * return new AngleBasedDriveTrainPIDController(driveTrain);
+			 */
 			case DISTANCE:
 				return new DistanceBasedDriveTrainPIDController(driveTrain);
-			case ANGLE:
-				return new AngleBasedDriveTrainPIDController(driveTrain);
-				*/
 			case VISION_TRACK:
 				return new VisionTrackingBasedDriveTrainPIDController(driveTrain);
 			default:
@@ -75,7 +76,6 @@ public class DriveTrain extends Subsystem {
 			}
 		}
 	}
-	
 
 	public DriveTrain() {
 		leftMotorFront.setFeedbackDevice(FEEDBACK_DEVICE);
@@ -134,9 +134,13 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new JoystickDrive());
 	}
 
-	
-	
-	
+	public void setVoltageRampRate(double rampRate) {
+		leftMotorFront.setVoltageRampRate(rampRate);
+		rightMotorFront.setVoltageRampRate(rampRate);
+		leftMotorRear.setVoltageRampRate(rampRate);
+		rightMotorRear.setVoltageRampRate(rampRate);
+	}
+
 	/**
 	 * Sets the {@link PIDController} for this {@link DriveTrain}.
 	 * 
@@ -191,10 +195,7 @@ public class DriveTrain extends Subsystem {
 
 	/**
 	 * Return {@code true} if the error is within the specified tolerance.
-	 * Equivalent to getPIDController().onTarget().<br>
-	 * <em>The current implementation of {@link PIDController#onTarget()} is
-	 * buggy. If you are using a {@link PIDController} that is not a
-	 * {@link DriveTrainPIDController}, please implement this method yourself.</em>
+	 * Equivalent to getPIDController().onTarget().
 	 * 
 	 * @return {@code true} if the error is less than the tolerance.
 	 */
@@ -228,9 +229,14 @@ public class DriveTrain extends Subsystem {
 		setPIDController(DriveTrainPIDController.DISTANCE);
 		setSetpoint(distanceTraveled() + distance);
 	}
-	
+
+	/**
+	 * Stops drivetrain motors, disables drivetrain PID, and disables drivetrain
+	 * ramping.
+	 */
 	public void stop() {
 		controller.disable();
+		setVoltageRampRate(0.0);
 		driveTrain.stopMotor();
 	}
 
@@ -254,16 +260,21 @@ public class DriveTrain extends Subsystem {
 		return rightMotorRear;
 	}
 
-	public Encoder getLeftEncoder() {
-		return leftEncoder;
+	public int getLeftEncoderPosition() {
+		return leftMotorFront.getEncPosition();
 	}
 
-	public Encoder getRightEncoder() {
-		return rightEncoder;
+	public int getRightEncoderPosition() {
+		return rightMotorFront.getEncPosition();
+	}
+
+	public void resetEncoders() {
+		leftMotorFront.setEncPosition(0);
+		rightMotorFront.setEncPosition(0);
 	}
 
 	public int distanceTraveled() {
-		return (leftEncoder.get() + rightEncoder.get()) / 2;
+		return (getLeftEncoderPosition() + getRightEncoderPosition()) / 2;
 	}
 
 	/**

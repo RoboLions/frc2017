@@ -1,15 +1,14 @@
 
 package org.usfirst.frc.team1261.robot;
 
+import org.usfirst.frc.team1261.robot.commands.GearAuto;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
-import org.usfirst.frc.team1261.robot.commands.LeftGearAuto;
-import org.usfirst.frc.team1261.robot.commands.MiddleGearAuto;
-import org.usfirst.frc.team1261.robot.commands.RightGearAuto;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.Feeder;
 import org.usfirst.frc.team1261.robot.subsystems.Flywheel;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
+import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -38,10 +37,10 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-	SendableChooser<String> autoTeamChooser = new SendableChooser<>();
-	SendableChooser<String> autoStartChooser = new SendableChooser<>();	
-	SendableChooser<String> autoGearChooser = new SendableChooser<>();
-	SendableChooser<String> autoBaselineChooser = new SendableChooser<>();
+	// SendableChooser<String> autoTeamChooser = new SendableChooser<>();
+	SendableChooser<Boolean> autoTurnChooser = new SendableChooser<>();
+	// SendableChooser<String> autoGearChooser = new SendableChooser<>();
+	// SendableChooser<String> autoBaselineChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,31 +51,34 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		SmartDashboard.putNumber("Auto Delay", 0.0);
 
-		autoTeamChooser.addDefault("Red", "Red");
-		autoTeamChooser.addObject("Blue", "Blue");
-		
-		autoStartChooser.addObject("Left", "Left");
-		autoStartChooser.addDefault("Middle", "Middle");
-		autoStartChooser.addObject("Right", "Right");
-		
-		autoGearChooser.addObject("Left", "Left");
-		autoGearChooser.addDefault("Middle", "Middle");
-		autoGearChooser.addObject("Right", "Right");
-		
-		autoBaselineChooser.addDefault("Left", "Left");
-		autoBaselineChooser.addObject("Right", "Right");
-		
-		SmartDashboard.putData("Team Color", autoTeamChooser);
-		SmartDashboard.putData("Starting Position", autoStartChooser);
-		SmartDashboard.putData("Gear Post Position", autoGearChooser);
-		SmartDashboard.putData("Baseline Crossing Side", autoBaselineChooser);
-		
-		SmartDashboard.putData("Move to Center", new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
+		// autoTeamChooser.addDefault("Red", "Red");
+		// autoTeamChooser.addObject("Blue", "Blue");
+
+		autoTurnChooser.addDefault("Turn left (starting on right or center)", false);
+		autoTurnChooser.addObject("Turn right (starting on left or center)", true);
+
+		// autoGearChooser.addObject("Left", "Left");
+		// autoGearChooser.addDefault("Middle", "Middle");
+		// autoGearChooser.addObject("Right", "Right");
+		//
+		// autoBaselineChooser.addDefault("Left", "Left");
+		// autoBaselineChooser.addObject("Right", "Right");
+
+		// SmartDashboard.putData("Team Color", autoTeamChooser);
+		SmartDashboard.putData("Starting Position", autoTurnChooser);
+		// SmartDashboard.putData("Gear Post Position", autoGearChooser);
+		// SmartDashboard.putData("Baseline Crossing Side",
+		// autoBaselineChooser);
+
+		SmartDashboard.putData("Move to Center",
+				new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
 		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));
 		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
 
+		//SmartDashboard.putBoolean("Run gear auto", true);
+
 		SmartDashboard.putData(Scheduler.getInstance());
-		
+
 	}
 
 	/**
@@ -106,17 +108,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//Find what gear post we're going for, then run that auto
-		if(autoGearChooser.getSelected().equalsIgnoreCase("Left")){
-			autonomousCommand = new LeftGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
-		}
-		else if(autoGearChooser.getSelected().equalsIgnoreCase("Middle")){
-			autonomousCommand = new MiddleGearAuto(autoStartChooser.getSelected(), autoBaselineChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
-		}
-		else if(autoGearChooser.getSelected().equalsIgnoreCase("Right")){
-			autonomousCommand = new RightGearAuto(autoStartChooser.getSelected(), SmartDashboard.getNumber("Auto Delay", 0.0));
-		}
-		
+		// Find what gear post we're going for, then run that auto
+
+		autonomousCommand = new GearAuto();
+
 		// schedule the autonomous command
 		if (autonomousCommand != null)
 			autonomousCommand.start();
@@ -161,7 +156,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
 		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
 		SmartDashboard.putNumber("Turret Position: ", turret.getTurretAngle());
-		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoder().get());
-		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoder().get());
+		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoderPosition());
+		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoderPosition());
+		SmartDashboard.putBoolean("Jetson online: ", JetsonCommunicationAdapter.isOnline());
+		SmartDashboard.putBoolean("Can see gear: ", JetsonCommunicationAdapter.isGearFound());
 	}
 }
