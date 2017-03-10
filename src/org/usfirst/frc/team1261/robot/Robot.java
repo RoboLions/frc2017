@@ -3,6 +3,7 @@ package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.GearAuto;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
+import org.usfirst.frc.team1261.robot.commands.TurretGoTo;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.Feeder;
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		SmartDashboard.putNumber("Auto Delay", 0.0);
+		SmartDashboard.putNumber("Turret target: ", (Robot.turret.getTurretAngle() > 0) ? -100.0 : 100.0);
 
 		// autoTeamChooser.addDefault("Red", "Red");
 		// autoTeamChooser.addObject("Blue", "Blue");
@@ -74,6 +76,7 @@ public class Robot extends IterativeRobot {
 				new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
 		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));
 		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
+		SmartDashboard.putData("Turret go to target", new TurretGoTo());
 
 		//SmartDashboard.putBoolean("Run gear auto", true);
 
@@ -155,7 +158,7 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic() {
 		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
 		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
-		SmartDashboard.putNumber("Turret Position: ", turret.getTurretAngle());
+		SmartDashboard.putNumber("Turret angle: ", turret.getTurretAngle());
 		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoderPosition());
 		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoderPosition());
 		SmartDashboard.putBoolean("Jetson online: ", JetsonCommunicationAdapter.isOnline());

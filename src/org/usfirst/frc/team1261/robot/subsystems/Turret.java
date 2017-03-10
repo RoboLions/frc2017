@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
+import org.usfirst.frc.team1261.robot.commands.JoystickTurret;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -14,20 +15,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Turret extends Subsystem {
 
-	public static final int MOTOR_ENCODER_TICKS_PER_REV = 0;
-	public static final double MOTOR_NOMINAL_OUTPUT_VOLTAGE = 0.0;
-	public static final double MOTOR_PEAK_OUTPUT_VOLTAGE = 0.0;
+	public static final int MOTOR_ENCODER_TICKS_PER_REV = (int) Math.round(1024.0 * 32 / 9);
+	public static final double MOTOR_NOMINAL_OUTPUT_VOLTAGE = 0.5;
+	public static final double MOTOR_PEAK_OUTPUT_VOLTAGE = 9.0;
 	public static final int MOTOR_FPID_PROFILE = 0;
 	public static final double MOTOR_F_GAIN = 0.0;
-	public static final double MOTOR_P_GAIN = 0.0;
-	public static final double MOTOR_I_GAIN = 0.0;
+	public static final double MOTOR_P_GAIN = 0.2;
+	public static final double MOTOR_I_GAIN = 0.00005;
 	public static final double MOTOR_D_GAIN = 0.0;
+	public static final int MOTOR_TOLERANCE = (int) (1.0 / 360.0 * MOTOR_ENCODER_TICKS_PER_REV); // 1deg
 
 	public static final double MIN_TURRET_ANGLE = -200.0;
 	public static final double MAX_TURRET_ANGLE = 200.0;
 
 	public static final double MIN_SERVO_POSITION = 0.40;
 	public static final double MAX_SERVO_POSITION = 0.575;
+	public static final double MIN_SERVO_ANGLE = 88.62; // angle at min position
+	public static final double MAX_SERVO_ANGLE = 62.62; // angle at max position
+
+	public static final double SERVO_DELTA_PER_DEGREE = (MAX_SERVO_POSITION - MIN_SERVO_POSITION)
+			/ (MAX_SERVO_ANGLE - MIN_SERVO_ANGLE);
+	public static final double SERVO_POSITION_ZERO_DEG = MIN_SERVO_POSITION
+			- (SERVO_DELTA_PER_DEGREE * MIN_SERVO_ANGLE);
 
 	CANTalon turretRotationMotor = RobotMap.turretRotationMotor;
 	Servo turretElevationServo = RobotMap.turretElevationServo;
@@ -37,6 +46,7 @@ public class Turret extends Subsystem {
 	public Turret() {
 		turretRotationMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		turretRotationMotor.reverseSensor(false);
+		turretRotationMotor.reverseOutput(true);
 		turretRotationMotor.configEncoderCodesPerRev(MOTOR_ENCODER_TICKS_PER_REV);
 		turretRotationMotor.configNominalOutputVoltage(MOTOR_NOMINAL_OUTPUT_VOLTAGE, -MOTOR_NOMINAL_OUTPUT_VOLTAGE);
 		turretRotationMotor.configPeakOutputVoltage(MOTOR_PEAK_OUTPUT_VOLTAGE, -MOTOR_PEAK_OUTPUT_VOLTAGE);
@@ -45,15 +55,17 @@ public class Turret extends Subsystem {
 		turretRotationMotor.setP(MOTOR_P_GAIN);
 		turretRotationMotor.setI(MOTOR_I_GAIN);
 		turretRotationMotor.setD(MOTOR_D_GAIN);
+		turretRotationMotor.setAllowableClosedLoopErr(MOTOR_TOLERANCE);
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		//setDefaultCommand(new JoystickTurret());
+		setDefaultCommand(new JoystickTurret());
 	}
 
 	public void setTurretPower(double power) {
+		turretRotationMotor.changeControlMode(TalonControlMode.PercentVbus);
 		turretRotationMotor.set(power);
 	}
 
@@ -75,9 +87,9 @@ public class Turret extends Subsystem {
 			angle = MIN_TURRET_ANGLE;
 		}
 
-		turretRotationMotor.set(angle * MOTOR_ENCODER_TICKS_PER_REV / 360.0);
+		turretRotationMotor.set(angle / 360.0);
 	}
-	
+
 	public double getTurretPosition() {
 		return turretRotationMotor.getPosition();
 	}
@@ -88,8 +100,8 @@ public class Turret extends Subsystem {
 	 * @return Angle, in degrees.
 	 */
 	public double getTurretAngle() {
-		return (turretRotationMotor.get() * 360.0 / MOTOR_ENCODER_TICKS_PER_REV);
-//>>>>>>> 2928885723344580fae33ed8ee303d4a3a167f12
+		return turretRotationMotor.getPosition() * 360.0;
+		// >>>>>>> 2928885723344580fae33ed8ee303d4a3a167f12
 	}
 
 	/*
@@ -118,6 +130,36 @@ public class Turret extends Subsystem {
 
 	public double getServoPosition() {
 		return turretElevationServo.get();
+	}
+
+	/**
+	 * Sets the servo's position based on the desired angle from the ground.
+	 * 
+	 * @param angle
+	 *            The angle from the ground, in degrees.
+	 */
+	public void setServoAngle(double angle) {
+		setServoPosition(SERVO_DELTA_PER_DEGREE * angle + SERVO_POSITION_ZERO_DEG);
+	}
+
+	/**
+	 * Sets the servo's position relative to its current position based on the
+	 * desired change in angle.
+	 * 
+	 * @param angleDelta
+	 *            The desired change in angle, in degrees.
+	 */
+	public void setServoAngleRelative(double angleDelta) {
+		setServoPositionRelative(SERVO_DELTA_PER_DEGREE * angleDelta);
+	}
+
+	/**
+	 * Gets the servo's position as the angle from the ground.
+	 * 
+	 * @return The angle from the ground, in degrees.
+	 */
+	public double getServoAngle() {
+		return (getServoPosition() - SERVO_POSITION_ZERO_DEG) / SERVO_DELTA_PER_DEGREE;
 	}
 
 	public void stop() {
