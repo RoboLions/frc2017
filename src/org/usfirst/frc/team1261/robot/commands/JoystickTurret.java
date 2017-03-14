@@ -16,7 +16,7 @@ public class JoystickTurret extends Command {
 
 	public static final double JOYSTICK_AXIS_DEADBAND = 0.1;
 
-	public static final double ROTATION_POWER_SCALING_FACTOR = 1.0;
+	public static final double ROTATION_POWER_SCALING_FACTOR = -0.1;
 
 	public JoystickTurret() {
 		// Use requires() here to declare subsystem dependencies

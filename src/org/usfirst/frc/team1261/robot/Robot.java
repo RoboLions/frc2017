@@ -3,7 +3,7 @@ package org.usfirst.frc.team1261.robot;
 
 import org.usfirst.frc.team1261.robot.commands.GearAuto;
 import org.usfirst.frc.team1261.robot.commands.ServoGoTo;
-import org.usfirst.frc.team1261.robot.commands.TurretGoTo;
+import org.usfirst.frc.team1261.robot.commands.ServoGoToSubcommand;
 import org.usfirst.frc.team1261.robot.subsystems.Climber;
 import org.usfirst.frc.team1261.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1261.robot.subsystems.Feeder;
@@ -11,6 +11,7 @@ import org.usfirst.frc.team1261.robot.subsystems.Flywheel;
 import org.usfirst.frc.team1261.robot.subsystems.Intake;
 import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
+import org.usfirst.frc.team1261.robot.subsystems.TurretLED;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
 	public static final Turret turret = new Turret();
+	public static final TurretLED turretLED = new TurretLED();
 
 	public static OI oi;
 
@@ -51,7 +53,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		SmartDashboard.putNumber("Auto Delay", 0.0);
-		SmartDashboard.putNumber("Turret target: ", (Robot.turret.getTurretAngle() > 0) ? -100.0 : 100.0);
+		SmartDashboard.putNumber("Servo target: ", 0.0);
+		SmartDashboard.putNumber("Flywheel target speed: ", 4100.0);
 
 		// autoTeamChooser.addDefault("Red", "Red");
 		// autoTeamChooser.addObject("Blue", "Blue");
@@ -74,9 +77,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Move to Center",
 				new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
-		SmartDashboard.putData("Move to Lower", new ServoGoTo(Turret.MAX_SERVO_POSITION));
-		SmartDashboard.putData("Move to Upper", new ServoGoTo(Turret.MIN_SERVO_POSITION));
-		SmartDashboard.putData("Turret go to target", new TurretGoTo());
+		SmartDashboard.putData("Move to Lower", new ServoGoToSubcommand(Turret.MAX_SERVO_POSITION));
+		SmartDashboard.putData("Move to Upper", new ServoGoToSubcommand(Turret.MIN_SERVO_POSITION));
+		SmartDashboard.putData("Servo go to", new ServoGoTo());
 
 		//SmartDashboard.putBoolean("Run gear auto", true);
 
@@ -156,8 +159,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotPeriodic() {
-		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getEncVelocity());
-		SmartDashboard.putNumber("Servo Position: ", turret.getServoPosition());
+		SmartDashboard.putNumber("Flywheel speed: ", flywheel.getFlywheelMotor().getSpeed());
+		SmartDashboard.putNumber("Servo angle: ", turret.getServoAngle());
 		SmartDashboard.putNumber("Turret angle: ", turret.getTurretAngle());
 		SmartDashboard.putNumber("Left Drive Encoder: ", driveTrain.getLeftEncoderPosition());
 		SmartDashboard.putNumber("Right Drive Encoder: ", driveTrain.getRightEncoderPosition());

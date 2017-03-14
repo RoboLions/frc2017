@@ -4,6 +4,8 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -26,6 +28,7 @@ public class RobotMap {
 	public static final int TURRET_ROTATION_PORT = 49;
 	public static final int AGITATOR_PORT = 50;	
 	public static final int TURRET_SERVO_PORT = 7;
+	public static final int TURRET_LED_PORT = 0;
 	
 	public static CANTalon leftDriveMotorFront = new CANTalon(LEFT_DRIVE_FRONT_PORT);
 	public static CANTalon leftDriveMotorRear = new CANTalon(LEFT_DRIVE_BACK_PORT);
@@ -37,8 +40,9 @@ public class RobotMap {
 	public static CANTalon topFlywheelMotor = new CANTalon(TOP_FLYWHEEL_PORT);
 	public static CANTalon bottomFlywheelMotor = new CANTalon(BOT_FLYWHEEL_PORT);
 	public static CANTalon turretRotationMotor = new CANTalon(TURRET_ROTATION_PORT);
-	
-	public static Servo turretElevationServo = new Servo(TURRET_SERVO_PORT	);
+
+	public static Servo turretElevationServo = new Servo(TURRET_SERVO_PORT);
+	public static Relay turretLED = new Relay(TURRET_LED_PORT, Direction.kForward);
 	
 	public static RobotDrive robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront,
 			rightDriveMotorRear);

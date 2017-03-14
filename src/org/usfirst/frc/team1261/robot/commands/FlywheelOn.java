@@ -3,13 +3,14 @@ package org.usfirst.frc.team1261.robot.commands;
 import org.usfirst.frc.team1261.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class FlywheelOn extends Command {
 
-	public static final double MINIMUM_SPEED = 600.0;
+	public static final double MINIMUM_SPEED = 4100.0;
 
 	public FlywheelOn() {
 		// Use requires() here to declare subsystem dependencies
@@ -20,11 +21,13 @@ public class FlywheelOn extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.flywheel.stop();
+		Robot.flywheel.setFlywheelSpeed(SmartDashboard.getNumber("Flywheel target speed: ", MINIMUM_SPEED));
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.flywheel.setFlywheelSpeed(MINIMUM_SPEED);
+//		if (timeSinceInitialized() >= 1.0)
+//			SmartDashboard.putNumber("Error", Robot.flywheel.getFlywheelMotor().getClosedLoopError());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
