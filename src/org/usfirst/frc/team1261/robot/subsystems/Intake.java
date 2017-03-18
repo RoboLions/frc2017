@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1261.robot.subsystems;
 
 import org.usfirst.frc.team1261.robot.RobotMap;
-import org.usfirst.frc.team1261.robot.commands.IntakeRollIn;
+import org.usfirst.frc.team1261.robot.commands.JoystickIntake;
 
 import com.ctre.CANTalon;
 
@@ -26,7 +26,7 @@ public class Intake extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new IntakeRollIn());
+		setDefaultCommand(new JoystickIntake());
 	}
 
 	/**
@@ -37,15 +37,7 @@ public class Intake extends Subsystem {
 	 */
 	public void setIntakePower(double power) {
 		intakePower = power;
-		setIntakePower();
-	}
-
-	/**
-	 * Sets the intake motor power to the predefined value, set using
-	 * {@link #setIntakePower(double)}.
-	 */
-	public void setIntakePower() {
-		intakeMotor.set(intakePower);
+		intakeMotor.set(power);
 	}
 
 	public double getIntakePower() {

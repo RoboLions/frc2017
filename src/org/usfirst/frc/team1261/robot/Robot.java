@@ -40,10 +40,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-	// SendableChooser<String> autoTeamChooser = new SendableChooser<>();
 	SendableChooser<Boolean> autoTurnChooser = new SendableChooser<>();
-	// SendableChooser<String> autoGearChooser = new SendableChooser<>();
-	// SendableChooser<String> autoBaselineChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -56,24 +53,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Servo target: ", 0.0);
 		SmartDashboard.putNumber("Flywheel target speed: ", 4100.0);
 
-		// autoTeamChooser.addDefault("Red", "Red");
-		// autoTeamChooser.addObject("Blue", "Blue");
-
 		autoTurnChooser.addDefault("Turn left (starting on right or center)", false);
 		autoTurnChooser.addObject("Turn right (starting on left or center)", true);
 
-		// autoGearChooser.addObject("Left", "Left");
-		// autoGearChooser.addDefault("Middle", "Middle");
-		// autoGearChooser.addObject("Right", "Right");
-		//
-		// autoBaselineChooser.addDefault("Left", "Left");
-		// autoBaselineChooser.addObject("Right", "Right");
-
-		// SmartDashboard.putData("Team Color", autoTeamChooser);
 		SmartDashboard.putData("Starting Position", autoTurnChooser);
-		// SmartDashboard.putData("Gear Post Position", autoGearChooser);
-		// SmartDashboard.putData("Baseline Crossing Side",
-		// autoBaselineChooser);
 
 		SmartDashboard.putData("Move to Center",
 				new ServoGoTo((Turret.MAX_SERVO_POSITION + Turret.MIN_SERVO_POSITION) / 2));
@@ -116,7 +99,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// Find what gear post we're going for, then run that auto
 
-		autonomousCommand = new GearAuto();
+		autonomousCommand = new GearAuto(autoTurnChooser.getSelected());
 
 		// schedule the autonomous command
 		if (autonomousCommand != null)

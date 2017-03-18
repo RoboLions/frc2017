@@ -3,6 +3,7 @@ package org.usfirst.frc.team1261.robot;
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
@@ -16,6 +17,10 @@ import edu.wpi.first.wpilibj.Relay.Direction;
 
 public class RobotMap {
 	
+	/*
+	 * Begin Declaration of Port Variables
+	 */
+	
 	public static final int LEFT_DRIVE_FRONT_PORT = 40;
 	public static final int LEFT_DRIVE_BACK_PORT = 41;
 	public static final int RIGHT_DRIVE_FRONT_PORT = 42;
@@ -27,9 +32,23 @@ public class RobotMap {
 	public static final int BOT_FLYWHEEL_PORT = 48;
 	public static final int TURRET_ROTATION_PORT = 49;
 	public static final int AGITATOR_PORT = 50;	
+	
 	public static final int TURRET_SERVO_PORT = 7;
 	public static final int TURRET_LED_PORT = 0;
 	
+	public static final int LASER_PORT = 0;
+	
+	/*
+	 * End Declaration of Port Variables
+	 */
+	
+	
+	
+	/*
+	 * Begin Creation of RobotMap Objects
+	 */
+	
+	//Motors
 	public static CANTalon leftDriveMotorFront = new CANTalon(LEFT_DRIVE_FRONT_PORT);
 	public static CANTalon leftDriveMotorRear = new CANTalon(LEFT_DRIVE_BACK_PORT);
 	public static CANTalon rightDriveMotorFront = new CANTalon(RIGHT_DRIVE_FRONT_PORT);
@@ -41,21 +60,27 @@ public class RobotMap {
 	public static CANTalon bottomFlywheelMotor = new CANTalon(BOT_FLYWHEEL_PORT);
 	public static CANTalon turretRotationMotor = new CANTalon(TURRET_ROTATION_PORT);
 
+	//Turret Misc
 	public static Servo turretElevationServo = new Servo(TURRET_SERVO_PORT);
 	public static Relay turretLED = new Relay(TURRET_LED_PORT, Direction.kForward);
 	
+	//Create Drivetrain
 	public static RobotDrive robotDrive = new RobotDrive(leftDriveMotorFront, leftDriveMotorRear, rightDriveMotorFront,
 			rightDriveMotorRear);
 	
+	//Encoders
 	public static Encoder leftDriveEncoder = new Encoder(15, 14);
 	public static Encoder rightDriveEncoder = new Encoder(0, 1);
+	
+	//Misc Sensors
+	public static AnalogInput frontRangeFinder = new AnalogInput(LASER_PORT);
 
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+	/*
+	 * End Declaration of RobotMap Objects
+	 */
+	
+	static {
+		frontRangeFinder.setAverageBits(0);
+		frontRangeFinder.setOversampleBits(0);
+	}
 }

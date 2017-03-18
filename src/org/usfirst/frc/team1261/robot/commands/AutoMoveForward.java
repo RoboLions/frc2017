@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoMoveForward extends Command {
 
-	public static final double POWER = -0.75;
+	public static final double POWER = 0.75;
 	public static final int ENCODER_TICKS_PER_REVOLUTION = 1077;
 	public static final double WHEEL_CIRCUMFERENCE = 0.5; //in feet
 	public static final double DISTANCE = 7.0; // also in feet
@@ -32,7 +32,7 @@ public class AutoMoveForward extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrain.getRobotDrive().drive(POWER, 0.0);
+		Robot.driveTrain.drive(POWER);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

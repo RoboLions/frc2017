@@ -4,7 +4,6 @@ import org.usfirst.frc.team1261.robot.commands.Climb;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
 import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
-import org.usfirst.frc.team1261.robot.commands.IntakeToggle;
 import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -65,18 +64,17 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 
-	static Joystick driverJoystick = new Joystick(DRIVER_JOYSTICK);
-	static Joystick manipulatorJoystick = new Joystick(MANIPULATOR_JOYSTICK);
+	public static final Joystick driverJoystick = new Joystick(DRIVER_JOYSTICK);
+	public static final Joystick manipulatorJoystick = new Joystick(MANIPULATOR_JOYSTICK);
 
-	Button intakeToggleButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
-	Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
-	Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
-	Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
-	Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
-	Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
+	public final Button intakeInvertButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
+	public final Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
+	public final Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
+	public final Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
+	public final Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
+	public final Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 
 	public OI() {
-		intakeToggleButton.whenPressed(new IntakeToggle());
 		feederInButton.toggleWhenPressed(new FeederIn());
 		feederOutButton.toggleWhenPressed(new FeederOut());
 		flywheelButton.whileHeld(new FlywheelOn());

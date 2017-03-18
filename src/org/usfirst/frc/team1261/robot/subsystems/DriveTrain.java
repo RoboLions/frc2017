@@ -6,6 +6,7 @@ import org.usfirst.frc.team1261.robot.commands.JoystickDrive;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -26,7 +27,11 @@ public class DriveTrain extends Subsystem {
 	public static final double MOTOR_GAIN_I = 0.0;
 	public static final double MOTOR_GAIN_D = 0.0;
 
-	// Not actually used in this subsystem, but can be used by autonomous commands
+	public static final double RANGEFINDER_VOLTS_TO_DISTANCE_FACTOR = 1.0;
+	public static final double RANGEFINDER_NO_SIGNAL_THRESHOLD = 0.25;
+
+	// Not actually used in this subsystem, but can be used by autonomous
+	// commands
 	public static final double DEFAULT_VOLTAGE_RAMP_RATE = 8.0;
 
 	CANTalon leftMotorFront = RobotMap.leftDriveMotorFront;
@@ -34,6 +39,7 @@ public class DriveTrain extends Subsystem {
 	CANTalon rightMotorFront = RobotMap.rightDriveMotorFront;
 	CANTalon rightMotorRear = RobotMap.rightDriveMotorRear;
 	RobotDrive driveTrain = RobotMap.robotDrive;
+	AnalogInput laserRangeFinder = RobotMap.frontRangeFinder;
 
 	// Change this to change the default PIDController for the DriveTrain.
 	PIDController controller = new DisabledDriveTrainPIDController(this);
@@ -75,6 +81,10 @@ public class DriveTrain extends Subsystem {
 				return new DisabledDriveTrainPIDController(driveTrain);
 			}
 		}
+	}
+
+	public class RangeFinderNoSignalException extends Exception {
+		private static final long serialVersionUID = 7796196790913368565L;
 	}
 
 	public DriveTrain() {
@@ -286,5 +296,57 @@ public class DriveTrain extends Subsystem {
 	 */
 	public void turn(double power) {
 		driveTrain.setLeftRightMotorOutputs(-power, power);
+	}
+
+	/**
+	 * Drives the robot forward or backward at the specified power and
+	 * curvature.
+	 * 
+	 * <p>
+	 * <em>This method accounts for the inverted motors on our drivetrain.</em>
+	 * </p>
+	 * 
+	 * @param power
+	 *            The power, between -1.0 and 1.0. Negative values represent
+	 *            moving backward, and positive values represent moving forward.
+	 * @param curve
+	 *            The curvature, between -1.0 and 1.0. Negative values represent
+	 *            turning left, and positive values represent turning right.
+	 */
+	public void drive(double power, double curve) {
+		// TODO: test to figure out if curve needs to be negated
+		driveTrain.drive(-power, curve);
+	}
+
+	/**
+	 * Drives the robot forward or backward at the specified power.
+	 * 
+	 * <p>
+	 * <em>This method accounts for the inverted motors on our drivetrain.</em>
+	 * </p>
+	 * 
+	 * @param power
+	 *            The power, between -1.0 and 1.0. Negative values represent
+	 *            moving backward, and positive values represent moving forward.
+	 */
+	public void drive(double power) {
+		drive(power, 0.0);
+	}
+
+	/**
+	 * Gets the {@link AnalogInput} that represents the laser range finder.
+	 * 
+	 * @return The {@link AnalogInput} associated with the laser range finder.
+	 */
+	public AnalogInput getRangeFinder() {
+		return laserRangeFinder;
+	}
+
+	public double getRangeFinderDistance() throws RangeFinderNoSignalException {
+		double rangeFinderVoltage = laserRangeFinder.getVoltage();
+		if (rangeFinderVoltage < RANGEFINDER_NO_SIGNAL_THRESHOLD) {
+			throw new RangeFinderNoSignalException();
+		}
+		return rangeFinderVoltage * RANGEFINDER_VOLTS_TO_DISTANCE_FACTOR;
 	}
 }

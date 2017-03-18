@@ -7,11 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeRollOut extends Command {
+public class JoystickIntake extends Command {
 
-	public static final double POWER = -1.0;
+	public static final double DEFAULT_POWER = 1.0;
+	public static final double INVERTED_POWER = -DEFAULT_POWER;
 
-	public IntakeRollOut() {
+	public JoystickIntake() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.intake);
@@ -24,7 +25,11 @@ public class IntakeRollOut extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.intake.setIntakePower(POWER);
+		if (Robot.oi.intakeInvertButton.get()) {
+			Robot.intake.setIntakePower(INVERTED_POWER);
+		} else {
+			Robot.intake.setIntakePower(DEFAULT_POWER);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

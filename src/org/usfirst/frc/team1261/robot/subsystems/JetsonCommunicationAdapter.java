@@ -29,18 +29,10 @@ public class JetsonCommunicationAdapter {
 	public static final double BOILER_X_AXIS_TARGET = BOILER_X_IMAGE_SIZE / 2;
 	public static final double BOILER_X_AXIS_TOLERANCE = BOILER_X_IMAGE_SIZE * TOLERANCE_FACTOR;
 
-	public static final double GEAR_X_AXIS_TARGET = GEAR_X_IMAGE_SIZE / 2; // TODO:
-																			// FIX
-																			// THIS
-																			// PLEASE
-																			// -
-																			// Terry
-	public static final double GEAR_X_AXIS_TOLERANCE = GEAR_X_IMAGE_SIZE * GEAR_TOLERANCE_FACTOR; // TODO:
-																									// FIX
-																									// THIS
-																									// PLEASE
-																									// -
-																									// Terry
+	// TODO: FIX THIS PLEASE -Terry
+	public static final double GEAR_X_AXIS_TARGET = GEAR_X_IMAGE_SIZE / 2;
+	// TODO: FIX THIS PLEASE -Terry
+	public static final double GEAR_X_AXIS_TOLERANCE = GEAR_X_IMAGE_SIZE * GEAR_TOLERANCE_FACTOR;
 
 	/**
 	 * Value used for x, y, and area of target when it cannot be retrieved.

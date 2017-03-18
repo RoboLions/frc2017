@@ -9,12 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 class VisionTrackingBasedDriveTrainPIDController extends PIDController {
 
-	// TODO: figure out these values
+	// TODO: figure out these PID constants
 	public static final double kP = 0.0018;
 	public static final double kI = 0.00026;
 	public static final double kD = 0.01;
 	public static final double DEFAULT_TOLERANCE = JetsonCommunicationAdapter.GEAR_X_AXIS_TOLERANCE;
 
+	// set to 0.0 to turn in place
 	public static final double POWER = 0.5;
 
 	/**
@@ -28,19 +29,25 @@ class VisionTrackingBasedDriveTrainPIDController extends PIDController {
 			public double pidGet() {
 				try {
 					SmartDashboard.putNumber("gear-x-error", JetsonCommunicationAdapter.getGearXOffset());
+					// TODO: account for camera offset
 					return JetsonCommunicationAdapter.getGearXOffset();
 				} catch (JetsonCommunicationAdapter.NoContoursFoundException e) {
 					return DEFAULT_ERROR;
 				}
 			}
 		}, new PIDOutput() {
+			@SuppressWarnings("unused")
 			@Override
 			public void pidWrite(double output) {
 				if (!JetsonCommunicationAdapter.isGearFound() || driveTrain.onTarget()) {
 					output = 0.0;
 				}
 				SmartDashboard.putNumber("Drivetrain turn power", output);
-				driveTrain.getRobotDrive().drive(POWER, output);
+				if (POWER != 0.0) {
+					driveTrain.drive(POWER, output);
+				} else {
+					driveTrain.turn(output);
+				}
 			}
 		});
 		setAbsoluteTolerance(DEFAULT_TOLERANCE);
