@@ -5,6 +5,7 @@ import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
 import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
 import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
+import org.usfirst.frc.team1261.robot.commands.TurretAlignAndShoot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -72,12 +73,17 @@ public class OI {
 	public final Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
 	public final Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
 	public final Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
-	public final Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
+	//public final Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
+	
+	public final Button autoShootButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 
 	public OI() {
 		feederInButton.toggleWhenPressed(new FeederIn());
 		feederOutButton.toggleWhenPressed(new FeederOut());
-		flywheelButton.whileHeld(new FlywheelOn());
+		
+		autoShootButton.whileHeld(new TurretAlignAndShoot());
+		
+		//flywheelButton.whileHeld(new FlywheelOn());
 		climbButton.whileHeld(new Climb());
 		shakeRobotButton.whileHeld(new ShakeRobot());
 	}

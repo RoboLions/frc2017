@@ -30,7 +30,7 @@ public class Turret extends Subsystem {
 
 	public static final double MIN_SERVO_POSITION = 0.40;
 	public static final double MAX_SERVO_POSITION = 0.575;
-	public static final double MIN_SERVO_ANGLE = 88.62; // angle at min position
+	public static final double MIN_SERVO_ANGLE = 36.62; // angle at min position
 	public static final double MAX_SERVO_ANGLE = 62.62; // angle at max position
 
 	public static final double SERVO_DELTA_PER_DEGREE = (MAX_SERVO_POSITION - MIN_SERVO_POSITION)
@@ -139,7 +139,7 @@ public class Turret extends Subsystem {
 	 *            The angle from the ground, in degrees.
 	 */
 	public void setServoAngle(double angle) {
-		setServoPosition(SERVO_DELTA_PER_DEGREE * angle + SERVO_POSITION_ZERO_DEG);
+		setServoPosition((SERVO_DELTA_PER_DEGREE * angle) + SERVO_POSITION_ZERO_DEG);
 	}
 
 	/**

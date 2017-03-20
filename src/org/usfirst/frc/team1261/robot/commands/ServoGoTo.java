@@ -13,14 +13,14 @@ public class ServoGoTo extends CommandGroup {
 
     public ServoGoTo(double position) {
         requires(Robot.turret);
-        addSequential(new ServoGoToSubcommand(Turret.MAX_SERVO_POSITION)); // go to lower limit
+        addSequential(new ServoGoToSubcommand(Turret.MAX_SERVO_ANGLE)); // go to lower limit
         addSequential(new WaitCommand(0.25));
         addSequential(new ServoGoToSubcommand(position));
     }
 
     public ServoGoTo() {
         requires(Robot.turret);
-        addSequential(new ServoGoToSubcommand(Turret.MAX_SERVO_POSITION)); // go to lower limit
+        addSequential(new ServoGoToSubcommand(Turret.MAX_SERVO_ANGLE)); // go to lower limit
         addSequential(new WaitCommand(0.25));
         addSequential(new ServoGoToSubcommand());
     }

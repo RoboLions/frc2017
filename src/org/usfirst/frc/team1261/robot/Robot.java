@@ -49,7 +49,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		SmartDashboard.putNumber("Auto Delay", 0.0);
 		SmartDashboard.putNumber("Servo target: ", 0.0);
 		SmartDashboard.putNumber("Flywheel target speed: ", 4100.0);
 

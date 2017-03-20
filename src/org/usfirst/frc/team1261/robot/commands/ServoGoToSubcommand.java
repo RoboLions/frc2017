@@ -18,6 +18,7 @@ public class ServoGoToSubcommand extends InstantCommand {
         // eg. requires(chassis);
     	requires(Robot.turret);
     	this.position = position;
+    	useSmartDashboard = false;
     }
 
     public ServoGoToSubcommand() {
@@ -30,7 +31,7 @@ public class ServoGoToSubcommand extends InstantCommand {
     		position = SmartDashboard.getNumber("Servo target: ", 0.0);
     		Robot.turret.setServoAngle(position);
     	} else {
-    		Robot.turret.setServoPosition(position);
+    		Robot.turret.setServoAngle(position);
     	}
     }
 }

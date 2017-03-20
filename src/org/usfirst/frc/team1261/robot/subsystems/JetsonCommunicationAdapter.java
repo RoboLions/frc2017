@@ -102,7 +102,7 @@ public class JetsonCommunicationAdapter {
 	 *             If no contours representing boilers can be identified.
 	 */
 	public static double getBoilerAngleTarget() throws NoContoursFoundException {
-		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", false);
+		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", true);
 		if (!isBoilerFound) {
 			throw new NoContoursFoundException();
 		} else {
@@ -129,7 +129,7 @@ public class JetsonCommunicationAdapter {
 	 *             If no contours representing boilers can be identified.
 	 */
 	public static double getVelocityTarget() throws NoContoursFoundException {
-		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", false);
+		boolean isBoilerFound = CONTOUR_TABLE.getBoolean("Boiler_Found", true);
 		if (!isBoilerFound) {
 			throw new NoContoursFoundException();
 		} else {
