@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1261.robot.commands;
 
 import org.usfirst.frc.team1261.robot.Robot;
+import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter;
+import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter.NoContoursFoundException;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -11,17 +13,35 @@ public class FlywheelSetSpeed extends Command {
 
 	public static final double MINIMUM_SPEED = 4100.0;
 	public double speed;
+	public boolean isVision = false;
 	
 	public FlywheelSetSpeed(double speed) {
 		this.speed = speed;
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+		isVision = false;
 		requires(Robot.flywheel);	
+	}
+	
+	public FlywheelSetSpeed(){
+		isVision = true;
+		requires(Robot.flywheel);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.flywheel.stop();
+		
+		if(isVision){
+			try{
+				speed = JetsonCommunicationAdapter.getVelocityTarget();
+				speed = speed * 39.37 * 60 / 12.57; 
+			}
+			catch (NoContoursFoundException e) {
+				System.out.println("No contours found");
+				e.printStackTrace();
+				speed = 0;
+			}
+		}
+		
 		Robot.flywheel.setFlywheelSpeed(speed);
 	}
 
