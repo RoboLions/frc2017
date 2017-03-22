@@ -3,9 +3,9 @@ package org.usfirst.frc.team1261.robot;
 import org.usfirst.frc.team1261.robot.commands.Climb;
 import org.usfirst.frc.team1261.robot.commands.FeederIn;
 import org.usfirst.frc.team1261.robot.commands.FeederOut;
-import org.usfirst.frc.team1261.robot.commands.FlywheelOn;
-import org.usfirst.frc.team1261.robot.commands.ShakeRobot;
+import org.usfirst.frc.team1261.robot.commands.FlywheelSetSpeed;
 import org.usfirst.frc.team1261.robot.commands.TurretAlignAndShoot;
+import org.usfirst.frc.team1261.robot.commands.TurretSetKnownAllign;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -71,21 +71,24 @@ public class OI {
 	public final Button intakeInvertButton = new JoystickButton(manipulatorJoystick, BUTTON_A);
 	public final Button feederInButton = new JoystickButton(manipulatorJoystick, BUTTON_B);
 	public final Button feederOutButton = new JoystickButton(manipulatorJoystick, BUTTON_X);
-	public final Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
+	//public final Button shakeRobotButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
+	public final Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_Y);
 	public final Button climbButton = new JoystickButton(manipulatorJoystick, BUTTON_LEFT_BUMPER);
-	//public final Button flywheelButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
 	
 	public final Button autoShootButton = new JoystickButton(manipulatorJoystick, BUTTON_RIGHT_BUMPER);
-
+	public final Button setTurretPresetButton = new JoystickButton(manipulatorJoystick, BUTTON_START);
+	
 	public OI() {
-		feederInButton.toggleWhenPressed(new FeederIn());
-		feederOutButton.toggleWhenPressed(new FeederOut());
+		feederInButton.whileHeld(new FeederIn());
+		feederOutButton.whileHeld(new FeederOut());
 		
 		autoShootButton.whileHeld(new TurretAlignAndShoot());
 		
-		//flywheelButton.whileHeld(new FlywheelOn());
+		setTurretPresetButton.toggleWhenPressed(new TurretSetKnownAllign());
+		
+		flywheelButton.whileHeld(new FlywheelSetSpeed(true));
 		climbButton.whileHeld(new Climb());
-		shakeRobotButton.whileHeld(new ShakeRobot());
+		//shakeRobotButton.whileHeld(new ShakeRobot());
 	}
 
 	public static Joystick getDriverJoystick() {

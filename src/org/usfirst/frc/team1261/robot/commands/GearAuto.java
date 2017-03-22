@@ -23,8 +23,8 @@ public class GearAuto extends CommandGroup {
 	public GearAuto(boolean turnRight) {
 		requires(Robot.driveTrain);
 
-		addSequential(new DriveDistance(INITIAL_DRIVE_DISTANCE));
-		addSequential(new TurnUntilGearSeen(turnRight));
+		//addSequential(new DriveDistance(INITIAL_DRIVE_DISTANCE));
+		//addSequential(new TurnUntilGearSeen(turnRight));
 		addSequential(new DriveTowardsGearUntilRangefinderDistance(RANGEFINDER_DISTANCE_THRESHOLD));
 	}
 }

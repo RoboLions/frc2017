@@ -18,9 +18,9 @@ public class DriveTowardsGearUntilRangefinderDistance extends Command {
 	public static final double ALIGN_STATE_ALIGNED_THRESH = 0.5;
 
 	// how long should we drive for? (seconds)
-	public static final double DRIVE_STATE_DURATION = 1.0; 
+	public static final double DRIVE_STATE_DURATION = 0.75; 
 	// power for driving
-	public static final double DRIVE_STATE_POWER = -0.5; // negative is forwards
+	public static final double DRIVE_STATE_POWER = 0.25; // positive is forwards
 
 	private final double rangeFinderDistance;
 
@@ -34,7 +34,7 @@ public class DriveTowardsGearUntilRangefinderDistance extends Command {
 	private double alignedSince;
 
 	private static enum State {
-		ALIGN_STATE, DRIVE_STATE
+		ALIGN_STATE, DRIVE_STATE, DRIVE_FOREVER_STATE
 	}
 
     public DriveTowardsGearUntilRangefinderDistance(double rangeFinderDistance) {
@@ -62,7 +62,9 @@ public class DriveTowardsGearUntilRangefinderDistance extends Command {
     		Robot.driveTrain.setPIDController(DriveTrainPIDController.VISION_TRACK);
     		break;
     	case DRIVE_STATE:
-    		Robot.driveTrain.getRobotDrive().drive(DRIVE_STATE_POWER, 0.0);
+    	case DRIVE_FOREVER_STATE:
+    		System.out.println("drive");
+    		Robot.driveTrain.drive(DRIVE_STATE_POWER);
     		break;
     	default:
     		throw new IllegalArgumentException("Unknown state in switchState");
@@ -71,8 +73,10 @@ public class DriveTowardsGearUntilRangefinderDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (currentState == State.ALIGN_STATE) {
+    	switch (currentState) {
+    	case ALIGN_STATE:
     		boolean onTarget = Robot.driveTrain.onTarget();
+    		System.out.println(onTarget);
     		if (onTarget) {
     			// we are now aligned. have we always been aligned?
     			// check by checking the value of "aligned"
@@ -97,19 +101,25 @@ public class DriveTowardsGearUntilRangefinderDistance extends Command {
     					targetNotVisibleSince = timeSinceInitialized();
     				} else if (timeSinceInitialized() >= targetNotVisibleSince + ALIGN_STATE_LOST_THRESH) {
     					// we're been waiting for the target long enough
-    					switchState(State.DRIVE_STATE);
+    					switchState(State.DRIVE_FOREVER_STATE);
     				}
     			}
     		}
-    	} else {
-    		// DRIVE STATE
+    		break;
+    	case DRIVE_STATE:
     		if (timeSinceInitialized() >= stateStartTime + DRIVE_STATE_DURATION) {
     			// we've been driving for long enough
     			switchState(State.ALIGN_STATE);
     		} else {
     			// continue driving
-    			Robot.driveTrain.getRobotDrive().drive(DRIVE_STATE_POWER, 0.0);
+    			Robot.driveTrain.drive(DRIVE_STATE_POWER);
     		}
+    		break;
+    	case DRIVE_FOREVER_STATE:
+    		Robot.driveTrain.drive(DRIVE_STATE_POWER);
+    		break;
+    	default:
+    		throw new IllegalStateException("Unknown state in execute");
     	}
     }
 

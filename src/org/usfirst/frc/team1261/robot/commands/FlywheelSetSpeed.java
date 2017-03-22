@@ -5,15 +5,17 @@ import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter;
 import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter.NoContoursFoundException;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class FlywheelSetSpeed extends Command {
 
-	public static final double MINIMUM_SPEED = 4100.0;
+	public static final double MINIMUM_SPEED = 3500.0;
 	public double speed;
 	public boolean isVision = false;
+	public boolean isSDB = false;
 	
 	public FlywheelSetSpeed(double speed) {
 		this.speed = speed;
@@ -26,6 +28,11 @@ public class FlywheelSetSpeed extends Command {
 		requires(Robot.flywheel);
 	}
 
+	public FlywheelSetSpeed(boolean useSmartDashboard){
+		isSDB = true;
+		requires(Robot.flywheel);
+	}
+	
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.flywheel.stop();
@@ -40,6 +47,9 @@ public class FlywheelSetSpeed extends Command {
 				e.printStackTrace();
 				speed = 0;
 			}
+		}
+		else if(isSDB){
+			speed = SmartDashboard.getNumber("Flywheel target speed: ", 0.0);
 		}
 		
 		Robot.flywheel.setFlywheelSpeed(speed);

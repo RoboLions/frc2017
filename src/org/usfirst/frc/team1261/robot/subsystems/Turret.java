@@ -165,7 +165,7 @@ public class Turret extends Subsystem {
 	public void stop() {
 		setTurretPower(0.0);
 	}
-
+	
 	public CANTalon getTurretMotor() {
 		return turretRotationMotor;
 	}

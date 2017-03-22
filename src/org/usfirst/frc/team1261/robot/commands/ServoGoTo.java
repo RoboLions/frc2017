@@ -4,6 +4,7 @@ import org.usfirst.frc.team1261.robot.Robot;
 import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter;
 import org.usfirst.frc.team1261.robot.subsystems.Turret;
 import org.usfirst.frc.team1261.robot.subsystems.JetsonCommunicationAdapter.NoContoursFoundException;
+import org.usfirst.frc.team1261.robot.subsystems.ShooterMath;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -25,7 +26,7 @@ public class ServoGoTo extends CommandGroup {
         double position;
         
         try{
-        	position = JetsonCommunicationAdapter.getBoilerAngleTarget();
+        	position = ShooterMath.getInitialConditions(JetsonCommunicationAdapter.getBoilerDistance()).angle;
         }
         catch (NoContoursFoundException e) {
 			System.out.println("No contours found");

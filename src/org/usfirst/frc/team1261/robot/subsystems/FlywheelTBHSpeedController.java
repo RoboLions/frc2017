@@ -6,7 +6,7 @@ public class FlywheelTBHSpeedController {
 
 	public static final double TOLERANCE = 100.0; // rpm
 	public static final double APPROX_MAX_SPEED = 5000.0; // rpm
-	public static final double PERIOD = 0.020; // seconds
+	public static final double PERIOD = 0.010; // seconds
 	public static final double TBH_GAIN = 0.00001; // integrated every period
 
 	private final Notifier notifier;

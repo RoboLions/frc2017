@@ -62,6 +62,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Move to Lower", new ServoGoToSubcommand(Turret.MAX_SERVO_POSITION));
 		SmartDashboard.putData("Move to Upper", new ServoGoToSubcommand(Turret.MIN_SERVO_POSITION));
 		SmartDashboard.putData("Servo go to", new ServoGoTo());
+		
 
 		//SmartDashboard.putBoolean("Run gear auto", true);
 

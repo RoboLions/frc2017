@@ -16,7 +16,7 @@ class VisionTrackingBasedDriveTrainPIDController extends PIDController {
 	public static final double DEFAULT_TOLERANCE = JetsonCommunicationAdapter.GEAR_X_AXIS_TOLERANCE;
 
 	// set to 0.0 to turn in place
-	public static final double POWER = 0.5;
+	public static final double POWER = 0.0;
 
 	/**
 	 * Error value used for PID when no target can be found.
@@ -36,17 +36,20 @@ class VisionTrackingBasedDriveTrainPIDController extends PIDController {
 				}
 			}
 		}, new PIDOutput() {
-			@SuppressWarnings("unused")
 			@Override
 			public void pidWrite(double output) {
 				if (!JetsonCommunicationAdapter.isGearFound() || driveTrain.onTarget()) {
 					output = 0.0;
 				}
 				SmartDashboard.putNumber("Drivetrain turn power", output);
-				if (POWER != 0.0) {
-					driveTrain.drive(POWER, output);
+				driveOrTurn(POWER, output);
+			}
+
+			private void driveOrTurn(double power, double curvature) {
+				if (power != 0.0) {
+					driveTrain.drive(power, -curvature);
 				} else {
-					driveTrain.turn(output);
+					driveTrain.turn(-curvature);
 				}
 			}
 		});
